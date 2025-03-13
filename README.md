@@ -1,15 +1,9 @@
 <br />
 
-<img src="https://raw.githubusercontent.com/natsunoyuki/PeekingDuckReborn/main/docs/source/assets/peekingduck.svg">
+<img src="https://raw.githubusercontent.com/natsunoyuki/PeekingDuckReborn/main/docs/source/assets/peekingduck_reborn.svg">
 
 ---
-
-[![Python version](https://img.shields.io/badge/python-3.6%20%7C%203.7%20%7C%203.8%20%7C%203.9-blue.svg)](https://pypi.org/project/peekingduck/)
-[![PyPI version](https://badge.fury.io/py/peekingduck.svg)](https://pypi.org/project/peekingduck/)
-[![PyPI Downloads](https://img.shields.io/pypi/dm/peekingduck)](https://pypi.org/project/peekingduck/)
-[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/natsunoyuki/PeekingDuckReborn/blob/main/LICENSE)
-[![Documentation Status](https://readthedocs.org/projects/peekingduck/badge/?version=stable)](https://peekingduck.readthedocs.io/en/stable/?badge=stable)
-
+### Original Documentation
 <h4 align="center">
   <a href="https://peekingduck.readthedocs.io/en/stable/getting_started/index.html">Getting started</a>
   <span> · </span>
