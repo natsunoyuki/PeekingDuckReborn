@@ -1,13 +1,13 @@
 <br />
 
-<img src="https://raw.githubusercontent.com/aisingapore/PeekingDuck/main/docs/source/assets/peekingduck.svg">
+<img src="https://raw.githubusercontent.com/natsunoyuki/PeekingDuckReborn/main/docs/source/assets/peekingduck.svg">
 
 ---
 
 [![Python version](https://img.shields.io/badge/python-3.6%20%7C%203.7%20%7C%203.8%20%7C%203.9-blue.svg)](https://pypi.org/project/peekingduck/)
 [![PyPI version](https://badge.fury.io/py/peekingduck.svg)](https://pypi.org/project/peekingduck/)
 [![PyPI Downloads](https://img.shields.io/pypi/dm/peekingduck)](https://pypi.org/project/peekingduck/)
-[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/aisingapore/PeekingDuck/blob/main/LICENSE)
+[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/natsunoyuki/PeekingDuckReborn/blob/main/LICENSE)
 [![Documentation Status](https://readthedocs.org/projects/peekingduck/badge/?version=stable)](https://peekingduck.readthedocs.io/en/stable/?badge=stable)
 
 <h4 align="center">
@@ -19,14 +19,14 @@
   <span> · </span>
   <a href="https://peekingduck.readthedocs.io/en/stable/faq.html">FAQ</a>
   <span> · </span>
-  <a href="https://github.com/aisingapore/PeekingDuck/issues">Report a bug</a>
+  <a href="https://github.com/natsunoyuki/PeekingDuckReborn/issues">Report a bug</a>
   <span> · </span>
   <a href="#communities">Communities</a>
 </h4>
 
 ---
 
-**PeekingDuck** is an open-source, modular framework in Python, built for Computer Vision (CV) inference. The name "PeekingDuck" is a play on: "Peeking" in a nod to CV; and "Duck" in [duck typing](https://en.wikipedia.org/wiki/Duck_typing).
+**PeekingDuckReborn** is the modernized version of PeekingDuck, an open-source, modular framework in Python, built for Computer Vision (CV) inference, originally developed by [AI Singapore](https://github.com/aisingapore/PeekingDuck). The name "PeekingDuck" is a play on: "Peeking" in a nod to CV; and "Duck" in [duck typing](https://en.wikipedia.org/wiki/Duck_typing).
 
 
 Features
