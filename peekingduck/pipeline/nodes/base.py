@@ -26,8 +26,19 @@ from typing import Any, Callable, Dict, List, Optional, Set, Union
 import requests
 from tqdm import tqdm
 
-BASE_URL = "https://storage.googleapis.com/peekingduck/models"
-PEEKINGDUCK_WEIGHTS_SUBDIR = "peekingduck_weights"
+from dotenv import load_dotenv
+load_dotenv()
+
+
+BASE_URL = os.getenv(
+    "BASE_URL",
+    "https://storage.googleapis.com/peekingduck/models",
+)
+
+PEEKINGDUCK_WEIGHTS_SUBDIR = os.getenv(
+    "PEEKINGDUCK_WEIGHTS_SUBDIR",
+    "peekingduck_weights",
+)
 
 
 class ThresholdCheckerMixin:
