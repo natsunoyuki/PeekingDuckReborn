@@ -17,17 +17,17 @@
   <span> · </span>
   <a href="#communities">Communities</a>
 </h4>
+The links above lead to the original PeekingDuck documentation. The documentation for PeekingDuckReborn is currently a work-in-progress.
 
 ---
 
-**PeekingDuckReborn** is the modernized version of PeekingDuck, an open-source, modular framework in Python, built for Computer Vision (CV) inference, originally developed by [AI Singapore](https://github.com/aisingapore/PeekingDuck). The name "PeekingDuck" is a play on: "Peeking" in a nod to CV; and "Duck" in [duck typing](https://en.wikipedia.org/wiki/Duck_typing).
+**PeekingDuckReborn** is the modernized version of [PeekingDuck](https://github.com/aisingapore/PeekingDuck), an open-source, modular framework in Python, built for computer vision (CV) inference, originally developed by [AI Singapore](https://github.com/aisingapore/PeekingDuck). The name "PeekingDuck" is a play on: "Peeking" in a nod to CV; and "Duck" in [duck typing](https://en.wikipedia.org/wiki/Duck_typing). "Reborn" is more straightforward - taking something old and giving it a new breath of life.
 
 
-Features
---------
+## Features
 
-### Build realtime CV pipelines
-* PeekingDuck enables you to build powerful CV pipelines with minimal lines of code.
+### Build realtime computer vision pipelines
+* PeekingDuck enables you to build powerful computer vision pipelines with minimal lines of code.
 
 ### Leverage on SOTA models
 * PeekingDuck comes with various [object detection](https://peekingduck.readthedocs.io/en/stable/resources/01a_object_detection.html), [pose estimation](https://peekingduck.readthedocs.io/en/stable/resources/01b_pose_estimation.html), [object tracking](https://peekingduck.readthedocs.io/en/stable/resources/01c_object_tracking.html), and [crowd counting](https://peekingduck.readthedocs.io/en/stable/resources/01d_crowd_counting.html) models. Mix and match different nodes to construct solutions for various [use cases](https://peekingduck.readthedocs.io/en/stable/use_cases/index.html).
@@ -36,125 +36,115 @@ Features
 * You can create [custom nodes](https://peekingduck.readthedocs.io/en/stable/tutorials/02_duck_confit.html#custom-nodes) to meet your own project's requirements. PeekingDuck can also be [imported as a library](https://peekingduck.readthedocs.io/en/stable/tutorials/05_calling_peekingduck_in_python.html) to fit into your existing workflows.
 
 
-Installation
-------------
+## Installation
+### Pip Install from GitHub
+Install from [GitHub](https://github.com/natsunoyuki/PeekingDuckReborn) using `pip`
 
-Install from [PyPI](https://pypi.org/project/peekingduck/) using `pip`
-
+```bash
+pip install git+https://github.com/natsunoyuki/PeekingDuckReborn
 ```
-> pip install peekingduck
+
+### Local Install (Developer Mode)
+Clone the repository from [GitHub](https://github.com/natsunoyuki/PeekingDuckReborn) and install locally in developer mode to implement your customizations.
+
+```bash
+git clone https://github.com/natsunoyuki/PeekingDuckReborn
+cd PeekingDuckReborn
+pip install -e .
 ```
 
-*Note: for users with ARM-based devices such as a Raspberry Pi or Apple Silicon Mac, please refer to the documentation for more detailed [installation instructions](https://peekingduck.readthedocs.io/en/stable/getting_started/03_custom_install.html).*
-
-PeekingDuck can also be [installed in a virtual environment](https://peekingduck.readthedocs.io/en/stable/getting_started/02_standard_install.html).
-
-
-```
-> peekingduck verify-install
+### Verifying the Installation
+```bash
+peekingduck verify-install
 ```
 
 You should see a video of a person waving his hand with
-[bounding boxes overlaid](https://raw.githubusercontent.com/aisingapore/PeekingDuck/main/docs/source/assets/getting_started/verify_install.gif).
+[bounding boxes overlaid](https://raw.githubusercontent.com/natsunoyuki/PeekingDuckReborn/main/docs/source/assets/getting_started/verify_install.gif).
 
 The video will close automatically when it is run to the end, select the video window and press `q` to exit earlier.
 
 
-Usage
------
-
+## Usage
 Create a project folder and initialize a PeekingDuck project.
-```
-> mkdir <project_dir>
-> cd <project_dir>
-> peekingduck init
+```bash
+mkdir <project_dir>
+cd <project_dir>
+peekingduck init
 ```
 
 Run the demo pipeline.
-```
-> peekingduck run
+```bash
+peekingduck run
 ```
 
 If you have a webcam, you should see a man waving on the output screen with
-[skeletal frame overlaid](https://raw.githubusercontent.com/aisingapore/PeekingDuck/main/docs/source/assets/getting_started/default_pipeline.gif).
+[skeletal frame overlaid](https://raw.githubusercontent.com/natsunoyuki/PeekingDuckReborn/main/docs/source/assets/getting_started/default_pipeline.gif).
 
 Terminate the program by clicking on the output screen and pressing `q`.
+
+Run the pipeline with a specified configuration `yml` file.
+```bash
+peekingduck run --config_path <path-to-config-yml-file>
+```
 
 Use `peekingduck --help` to display help information for PeekingDuck's command-line interface.
 
 
-Gallery
--------
-
+## Gallery
 <table>
   <tr>
     <td>
       <a href="https://peekingduck.readthedocs.io/en/stable/use_cases/social_distancing.html">
-        <img src="https://raw.githubusercontent.com/aisingapore/PeekingDuck/main/docs/source/assets/use_cases/social_distancing.gif">
+        <img src="https://raw.githubusercontent.com/natsunoyuki/PeekingDuckReborn/main/docs/source/assets/use_cases/social_distancing.gif">
       </a>
     </td>
     <td>
       <a href="https://peekingduck.readthedocs.io/en/stable/use_cases/privacy_protection_faces.html">
-        <img src="https://raw.githubusercontent.com/aisingapore/PeekingDuck/main/docs/source/assets/use_cases/privacy_protection_faces.gif">
+        <img src="https://raw.githubusercontent.com/natsunoyuki/PeekingDuckReborn/main/docs/source/assets/use_cases/privacy_protection_faces.gif">
       </a>
     </td>
     <td>
       <a href="https://peekingduck.readthedocs.io/en/stable/use_cases/zone_counting.html">
-        <img src="https://raw.githubusercontent.com/aisingapore/PeekingDuck/main/docs/source/assets/use_cases/zone_counting.gif">
+        <img src="https://raw.githubusercontent.com/natsunoyuki/PeekingDuckReborn/main/docs/source/assets/use_cases/zone_counting.gif">
       </a>
     </td>
     <td>
       <a href="https://peekingduck.readthedocs.io/en/stable/use_cases/object_counting_over_time.html">
-        <img src="https://raw.githubusercontent.com/aisingapore/PeekingDuck/main/docs/source/assets/use_cases/object_counting_over_time.gif">
+        <img src="https://raw.githubusercontent.com/natsunoyuki/PeekingDuckReborn/main/docs/source/assets/use_cases/object_counting_over_time.gif">
       </a>
     </td>
   </tr>
   <tr>
     <td>
       <a href="https://peekingduck.readthedocs.io/en/stable/use_cases/group_size_checking.html">
-        <img src="https://raw.githubusercontent.com/aisingapore/PeekingDuck/main/docs/source/assets/use_cases/group_size_checking.gif">
+        <img src="https://raw.githubusercontent.com/natsunoyuki/PeekingDuckReborn/main/docs/source/assets/use_cases/group_size_checking.gif">
       </a>
     </td>
     <td>
       <a href="https://peekingduck.readthedocs.io/en/stable/use_cases/privacy_protection_license_plates.html">
-        <img src="https://raw.githubusercontent.com/aisingapore/PeekingDuck/main/docs/source/assets/use_cases/privacy_protection_license_plates.gif">
+        <img src="https://raw.githubusercontent.com/natsunoyuki/PeekingDuckReborn/main/docs/source/assets/use_cases/privacy_protection_license_plates.gif">
       </a>
     </td>
     <td>
       <a href="https://peekingduck.readthedocs.io/en/stable/use_cases/crowd_counting.html">
-        <img src="https://raw.githubusercontent.com/aisingapore/PeekingDuck/main/docs/source/assets/use_cases/crowd_counting.gif">
+        <img src="https://raw.githubusercontent.com/natsunoyuki/PeekingDuckReborn/main/docs/source/assets/use_cases/crowd_counting.gif">
       </a>
     </td>
     <td>
       <a href="https://peekingduck.readthedocs.io/en/stable/use_cases/people_counting_over_time.html">
-        <img src="https://raw.githubusercontent.com/aisingapore/PeekingDuck/main/docs/source/assets/use_cases/people_counting_over_time.gif">
+        <img src="https://raw.githubusercontent.com/natsunoyuki/PeekingDuckReborn/main/docs/source/assets/use_cases/people_counting_over_time.gif">
       </a>
     </td>
   </tr>
 </table>
 
 
-Acknowledgements
-----------------
+## Acknowledgements
+PeekingDuckReborn is an independent offshoot of [PeekingDuck](https://github.com/aisingapore/PeekingDuck), which was previously supported by the National Research Foundation, Singapore under its AI Singapore Programme. 
 
-This project is supported by the National Research Foundation, Singapore under its AI Singapore Programme (AISG-RP-2019-050). Any opinions, findings and conclusions or recommendations expressed in this material are those of the author(s) and do not reflect the views of National Research Foundation, Singapore.
+Any opinions, findings and conclusions or recommendations expressed in this material are those of the authors of PeekingDuckReborn and do not reflect the views of National Research Foundation, Singapore, or of AI Singapore, or of the original authors of [PeekingDuck](https://github.com/aisingapore/PeekingDuck).
 
+PeekingDuckReborn is neither supported or funded by, nor affiliated with the National Research Foundation, Singapore, or AI Singapore, or the original authors of [PeekingDuck](https://github.com/aisingapore/PeekingDuck).
 
-License
--------
-
-PeekingDuck is under the open source [Apache License 2.0](https://github.com/aisingapore/PeekingDuck/blob/main/LICENSE) (:
-
-Even so, your organization may require legal proof of its right to use PeekingDuck, due to circumstances such as the following:
-- Your organization is using PeekingDuck in a jurisdiction that does not recognize this license
-- Your legal department requires a license to be purchased
-- Your organization wants to hold a tangible legal document as evidence of the legal right to use and distribute PeekingDuck
-
-[Contact us](https://aisingapore.org/home/contact/) if any of these circumstances apply to you.
-
-
-Communities
------------
-
-- [AI Singapore community forum](https://community.aisingapore.org/groups/computer-vision/forum/)
-- [Discuss on GitHub](https://github.com/aisingapore/PeekingDuck/discussions)
+## License
+PeekingDuckReborn is released under the open source [Apache License 2.0](https://github.com/natsunoyuki/PeekingDuckReborn/blob/main/LICENSE).
