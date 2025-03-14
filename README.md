@@ -145,6 +145,3 @@ PeekingDuckReborn is an independent offshoot of [PeekingDuck](https://github.com
 Any opinions, findings and conclusions or recommendations expressed in this material are those of the authors of PeekingDuckReborn and do not reflect the views of National Research Foundation, Singapore, or of AI Singapore, or of the original authors of [PeekingDuck](https://github.com/aisingapore/PeekingDuck).
 
 PeekingDuckReborn is neither supported or funded by, nor affiliated with the National Research Foundation, Singapore, or AI Singapore, or the original authors of [PeekingDuck](https://github.com/aisingapore/PeekingDuck).
-
-## License
-PeekingDuckReborn is released under the open source [Apache License 2.0](https://github.com/natsunoyuki/PeekingDuckReborn/blob/main/LICENSE).
