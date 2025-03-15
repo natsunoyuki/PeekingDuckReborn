@@ -53,6 +53,14 @@ cd PeekingDuckReborn
 pip install -e .
 ```
 
+### Install Options
+The following install options are available.
+```bash
+pip install ".[<install-option>]"
+```
+1. `test`: Test functionality with `pytest`.
+
+
 ### Verifying the Installation
 ```bash
 peekingduck verify-install
