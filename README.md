@@ -24,9 +24,16 @@ The links above lead to the original PeekingDuck documentation. The documentatio
 **PeekingDuckReborn** is the modernized version of [PeekingDuck](https://github.com/aisingapore/PeekingDuck), an open-source, modular framework in Python, built for computer vision (CV) inference, originally developed by [AI Singapore](https://github.com/aisingapore/PeekingDuck). The name "PeekingDuck" is a play on: "Peeking" in a nod to CV; and "Duck" in [duck typing](https://en.wikipedia.org/wiki/Duck_typing). "Reborn" is more straightforward - taking something old and giving it a new breath of life.
 
 ## To Do
-- [ ] Modernize tests.
+- [X] Full compatibility with Python3.10+.
+- [X] Updated dependencies.
 - [ ] Implement re-ID for BoT-SORT tracker node. 
-
+- [ ] Improved pose estimation models.
+- [ ] Improved object tracking models.
+- [ ] Multi-GPU support.
+- [ ] ONNX deployment for all models.
+- [ ] Modernize tests.
+- [ ] Updated documentation on the internet to replace [the original](https://peekingduck.readthedocs.io/en/stable/index.html#what-is-peekingduck).
+- [ ] Updated model weights repository on the internet to replace [the original](https://storage.googleapis.com/peekingduck/models)
 
 ## Features
 
