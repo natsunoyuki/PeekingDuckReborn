@@ -22,7 +22,10 @@ import sys
 from pathlib import Path
 from typing import Any, Iterator, TextIO, Tuple, Union
 
-import pkg_resources as pkg
+from importlib.metadata import version, PackageNotFoundError
+from packaging.specifiers import SpecifierSet
+from packaging.requirements import Requirement
+
 
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 PKD_NODE_PREFIX = "peekingduck.pipeline.nodes."
@@ -81,8 +84,10 @@ def check_requirements(
     for req in requirements:
         if req.type == PKD_REQ_TYPE_PYTHON:
             try:
-                pkg.require(req.name)
-            except (pkg.DistributionNotFound, pkg.VersionConflict):
+                installed_version = version(req.name)
+                if installed_version not in SpecifierSet(str(req.specifier)):
+                    raise ValueError("Version conflict")
+            except (PackageNotFoundError, ValueError):
                 logger.info(
                     f"{req.name} not found and is required, attempting auto-update..."
                 )
@@ -127,7 +132,7 @@ def _parse_requirements(file: TextIO, identifier: str) -> Iterator[OptionalRequi
             line = line[: line.find(" #")]
         req_type, req_name = _split_type_and_name(line)
         if req_type == PKD_REQ_TYPE_PYTHON:
-            req = pkg.Requirement(req_name)  # type: ignore
+            req = Requirement(req_name)  # type: ignore
             requirement = OptionalRequirement(f"{req.name}{req.specifier}", req_type)
         else:
             requirement = OptionalRequirement(req_name, req_type)
