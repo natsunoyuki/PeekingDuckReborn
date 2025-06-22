@@ -34,7 +34,12 @@ from peekingduck.pipeline.pipeline import Pipeline
 from peekingduck.utils.deprecation import deprecate
 from peekingduck.utils.detect_id_mapper import obj_det_change_class_name_to_id
 
+# https://peekingduck.readthedocs.io/en/stable/index.html
 PEEKINGDUCK_NODE_TYPES = ["input", "augment", "model", "draw", "dabble", "output"]
+
+# Original PeekingDuck object detection models:
+# https://peekingduck.readthedocs.io/en/stable/nodes/model.html
+PEEKINGDUCK_OBJ_DET_MODELS = ["efficientdet", "mask_rcnn", "yolo", "yolox", "yolact_edge"]
 
 
 class DeclarativeLoader:  # pylint: disable=too-few-public-methods, too-many-instance-attributes
@@ -241,9 +246,9 @@ class DeclarativeLoader:  # pylint: disable=too-few-public-methods, too-many-ins
                                 4,
                             )
 
-                        # Only convert class names to id if model is not yolo_face,
-                        # since yolo_face has no class names
-                        if node_name != "model.yolo_face":
+                        # Only convert class names to id if model is one of the 
+                        # original PeekingDuck object detection models.
+                        if node_name in PEEKINGDUCK_OBJ_DET_MODELS:
                             key, value = obj_det_change_class_name_to_id(
                                 node_name, key, value
                             )
