@@ -2,7 +2,7 @@
 
 import logging
 from pathlib import Path
-from typing import Dict, List, Tuple, Union
+from typing import List, Tuple, Union
 
 import numpy as np
 import torch
@@ -27,24 +27,29 @@ class Detector:  # pylint: disable=too-many-instance-attributes
         self,
         model_dir: Union[Path, str],
         detect_ids: List[int],
-        model_type: str,
+        model_type: str="rtdetr_r18vd",
         input_size: int=640,
         score_threshold: float=0.5,
     ) -> None:
         self.logger = logging.getLogger(__name__)
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        
+        self.detect_ids = detect_ids
 
         self.model_dir = Path(model_dir)
         self.model_type = model_type
         self.model_path = str(self.model_dir / model_type)
 
-        self.detect_ids = detect_ids
-
         self.input_size = (input_size, input_size)
         self.score_threshold = score_threshold
 
         self.model, self.image_processor = self.create_rtdetr_model()
+
         self.id2label = self.model.config.id2label
+        label2id = {v: k for k, v in self.id2label.items()}
+        self.detect_ids = [label2id.get(i, 0) for i in self.detect_ids]
+
+        self.log()
 
 
     @torch.no_grad()
@@ -72,29 +77,13 @@ class Detector:  # pylint: disable=too-many-instance-attributes
         # Store the original image size to normalize bbox later
         image_shape = image.shape[:2]
 
-        inputs = self.image_processor(images=image, return_tensors="pt")
-        inputs = inputs.to(self.device)
+        inputs = self.preprocess(image)
         
         self.model = self.model.to(self.device)
         with torch.no_grad():
             result = self.model(**inputs)
 
-        result = self.image_processor.post_process_object_detection(
-            result, 
-            target_sizes=torch.tensor([(image_shape[0], image_shape[1])]), 
-            threshold=self.score_threshold,
-        )[0]
-        bboxes = result["boxes"].detach().cpu().numpy()
-        classes = result["labels"].detach().cpu().numpy()
-        scores = result["scores"].detach().cpu().numpy()
-
-        want = np.isin(classes, self.detect_ids)
-        bboxes = bboxes[want]
-        classes = classes[want]
-        scores = scores[want]
-
-        bboxes = xyxy2xyxyn(bboxes, image_shape[0], image_shape[1])
-        classes = np.array([self.id2label[c] for c in classes])
+        bboxes, classes, scores = self.postprocess(result, image_shape)
         
         return bboxes, classes, scores
 
@@ -109,14 +98,44 @@ class Detector:  # pylint: disable=too-many-instance-attributes
         Returns:
             (RTDetrForObjectDetection): RE-DETR model.
         """
+        return (
+            RTDetrForObjectDetection.from_pretrained(self.model_path),
+            RTDetrImageProcessor.from_pretrained(self.model_path),
+        )
+
+
+    def preprocess(self, image, return_tensors="pt"):
+        inputs = self.image_processor(images=image, return_tensors=return_tensors)
+        inputs = inputs.to(self.device)
+        return inputs
+    
+
+    def postprocess(self, predictions, image_shape):
+        result = self.image_processor.post_process_object_detection(
+            predictions, 
+            target_sizes=torch.tensor([(image_shape[0], image_shape[1])]), 
+            threshold=self.score_threshold,
+        )[0]
+
+        bboxes = result["boxes"].detach().cpu().numpy()
+        classes = result["labels"].detach().cpu().numpy()
+        scores = result["scores"].detach().cpu().numpy()
+
+        want = np.isin(classes, self.detect_ids)
+        bboxes = bboxes[want]
+        classes = classes[want]
+        scores = scores[want]
+
+        bboxes = xyxy2xyxyn(bboxes, image_shape[0], image_shape[1])
+        classes = np.array([self.id2label[c] for c in classes])
+        return bboxes, classes, scores
+
+
+    def log(self):
         self.logger.info(
             "RE-DETR model loaded with the following configs:\n\t"
             f"Model type: {self.model_type}\n\t"
             f"Input resolution: {self.input_size}\n\t"
             f"IDs being detected: {self.detect_ids}\n\t"
             f"Score threshold: {self.score_threshold}\n\t"
-        )
-        return (
-            RTDetrForObjectDetection.from_pretrained(self.model_path),
-            RTDetrImageProcessor.from_pretrained(self.model_path),
         )

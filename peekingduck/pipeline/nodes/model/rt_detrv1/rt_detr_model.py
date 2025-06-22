@@ -36,7 +36,11 @@ class RTDETRModel(ThresholdCheckerMixin, WeightsDownloaderMixin):
 
         self.check_bounds(["score_threshold"], "[0, 1]")
 
-        model_dir = self.config.get("model_dir", "PekingU")
+        use_hf = self.config.get("huggingface", True)
+        if use_hf is True:
+            model_dir = self.config.get("huggingface_model_dir", "PekingU")
+        else:
+            model_dir = self._find_paths()
 
         self.detect_ids = self.config["detect"]
 

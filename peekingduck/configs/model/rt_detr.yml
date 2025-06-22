@@ -2,16 +2,19 @@ input: ["img"]
 output: ["bboxes", "bbox_labels", "bbox_scores"]
 
 detect: [0]
-score_threshold: 0.25
+score_threshold: 0.5
 input_size: 640
 
+# Flag to use the model weights hosted on HuggingFace or not.
+huggingface: True
 # https://huggingface.co/docs/transformers/main/en/model_doc/rt_detr
 model_type: rtdetr_r50vd
 # Models trained on MS-COCO:
 # rtdetr_r18vd, rtdetr_r34vd, rtdetr_r50vd, rtdetr_r101vd.
 # Models trained on MS-COCO + Objects 365:
 # rtdetr_r18vd_coco_o365, rtdetr_r50vd_coco_o365, rtdetr_r101vd_coco_o365.
-model_dir: PekingU
+# Model directory on HuggingFace: https://huggingface.co/PekingU.
+huggingface_model_dir: PekingU
 
 # TODO: RT-DETR will download the model and image processor weights and configs
 # from HuggingFace Hub: https://huggingface.co/PekingU/models. The weights are
@@ -19,7 +22,11 @@ model_dir: PekingU
 # `peekingduck_weights` like the default PeekingDuck model weights.
 # We will need to figure out how to merge this with the PeekingDuck models
 # which are downloaded from https://storage.googleapis.com/peekingduck/models.
-model_format: pytorch
 weights_parent_dir: null
-weights: {}
-num_classes: 80
+weights: {
+  pytorch: {
+    model_subdir: rt_detr,
+  }
+}
+model_format: pytorch
+#num_classes: 80
