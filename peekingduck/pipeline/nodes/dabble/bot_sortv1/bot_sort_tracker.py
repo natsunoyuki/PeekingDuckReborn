@@ -1,9 +1,13 @@
-from collections import OrderedDict
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List
 
 import numpy as np
 
 from bot_sort import BoTSORT
+
+from peekingduck.pipeline.nodes.dabble.bot_sortv1.utils import (
+    xyxy2xyxyn, 
+    xyxyn2xyxy,
+)
 
 
 class BoTSORTTracker:
@@ -31,7 +35,6 @@ class BoTSORTTracker:
         self.track_buffer = config.get("track_buffer", 30)
         self.frame_rate = config.get("frame_rate", 30)
 
-
         self.tracker = BoTSORT(
             track_high_thresh=self.track_high_thresh,
             track_low_thresh=self.track_low_thresh,
@@ -52,15 +55,34 @@ class BoTSORTTracker:
         Returns:
             (List[int]]): List of track IDs.
         """
-        bgr_frame = inputs["img"]
+        bgr_frame = inputs.get("img")
+        bboxes = inputs.get("bboxes")
+        labels = inputs.get("bbox_labels")
+        scores = inputs.get("bbox_scores")
+
+        # Denormalize bounding box coordinates.
         frame_size = bgr_frame.shape[:2]
+        bboxes = xyxyn2xyxy(bboxes, *frame_size)
 
-        bboxes = xyxyn2xyxy(inputs["bboxes"], *frame_size)
-        labels = inputs["bbox_labels"]
-        scores = inputs["bbox_scores"]
-
+        # Update tracker.
         tracked_objects = self.tracker.update(bboxes, labels, scores)
 
+        # Format tracks into something PeekingDuck's pipeline can ingest.
+        ids, boxes, box_labels, box_scores = self.postprocess(tracked_objects)
+
+        boxes = xyxy2xyxyn(boxes, *frame_size)
+            
+        return {
+            "ids": ids,
+            "bboxes": boxes,
+            "bbox_labels": box_labels,
+            "bbox_scores": box_scores,
+        }
+
+
+    def postprocess(self, tracked_objects=[]):
+        """Post processes the tracked objects from BoT-SORT into a format which
+        the PeekingDuck pipeline can ingest."""
         ids = []
         bboxes = []
         bbox_labels = []
@@ -70,44 +92,12 @@ class BoTSORTTracker:
             bboxes.append(t.tlbr.tolist())
             bbox_labels.append(t.label)
             bbox_scores.append(t.score)
-            
-        return {
-            "ids": ids,
-            "bboxes": xyxy2xyxyn(np.array(bboxes), *frame_size),
-            "bbox_labels": np.array(bbox_labels),
-            "bbox_scores": np.array(bbox_scores),
-        }
+        
+        if len(bboxes) == 0:
+            bboxes = np.empty([0, 4])
+        else:
+            bboxes = np.array(bboxes)
+        bbox_labels = np.array(bbox_labels)
+        bbox_scores = np.array(bbox_scores)
 
-
-def xyxyn2xyxy(inputs: np.ndarray, height: int, width: int) -> np.ndarray:
-    """Converts bounding boxes format from (x1, y1, x2, y2) to (X1, Y1, X2, Y2).
-    (x1, y1) is the normalized coordinates of the top-left corner, (x2, y2) is
-    the normalized coordinates of the bottom-right corner. (X1, Y1) is the
-    original coordinates of the top-left corner, (X2, Y2) is the original 
-    coordinates of the bottom-right corner.
-
-    Args:
-        inputs (np.ndarray): Bounding box coordinates with (x1, y1, x2, y2)
-            format.
-        height (int): Original height of bounding box.
-        width (int): Original width of bounding box.
-
-    Returns:
-        (np.ndarray): Converted bounding box coordinates with (X1, Y1, X2, Y2)
-            format.
-    """
-    outputs = np.empty_like(inputs)
-    outputs[:, 0] = inputs[:, 0] * width
-    outputs[:, 1] = inputs[:, 1] * height
-    outputs[:, 2] = inputs[:, 2] * width
-    outputs[:, 3] = inputs[:, 3] * height
-    return outputs
-
-
-def xyxy2xyxyn(inputs: np.ndarray, height: int, width: int) -> np.ndarray:
-    outputs = np.empty_like(inputs)
-    outputs[:, 0] = inputs[:, 0] / width
-    outputs[:, 1] = inputs[:, 1] / height
-    outputs[:, 2] = inputs[:, 2] / width
-    outputs[:, 3] = inputs[:, 3] / height
-    return outputs
+        return ids, bboxes, bbox_labels, bbox_scores
