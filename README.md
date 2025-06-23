@@ -1,6 +1,6 @@
 <br />
 
-<img src="https://raw.githubusercontent.com/natsunoyuki/PeekingDuckReborn/main/docs/source/assets/peekingduck_reborn.svg">
+<img src="https://raw.githubusercontent.com/natsunoyuki/PeekingDuckReborn/main/docs/source/assets/peekingduck_reborn_new.svg">
 
 ---
 ### Original Documentation
@@ -27,13 +27,15 @@ The links above lead to the original PeekingDuck documentation. The documentatio
 - [X] Full compatibility with Python3.12+.
 - [X] Update dependencies.
 - [X] Replace `pkg_resources` with `importlib.metadata`.
+- [X] Added BoT-SORT bounding box tracker (without reID) dabble node.
+- [X] Added RT-DETR object detector model node.
 - [ ] Remove/deprecate PeekingDuck Mosse tracker.
 - [ ] Remove/deprecate PeekingDuck pose estimation models. 
 - [ ] Implement norfair-sort object tracker.
-- [ ] Implement re-ID for BoT-SORT tracker node. 
-- [ ] Implement advanced pose estimation models.
+- [ ] Implement re-ID for BoT-SORT tracker dabble node. 
+- [ ] Implement advanced pose estimation models in the models node.
 - [ ] Implement multi-GPU support.
-- [ ] Implement ONNX deployment for all models.
+- [ ] Implement ONNX deployment for all models in the models node.
 - [ ] Modernize test suite.
 - [ ] Updated documentation on the internet to replace [the original](https://peekingduck.readthedocs.io/en/stable/index.html#what-is-peekingduck).
 - [ ] Updated model weights repository on the internet to replace [the original](https://storage.googleapis.com/peekingduck/models)
