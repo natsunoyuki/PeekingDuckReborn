@@ -19,8 +19,10 @@ Tests for draw instance mask node.
 import cv2
 import numpy as np
 import pytest
-from skimage.measure import compare_ssim as ssim
+from skimage.metrics import structural_similarity as ssim
 import yaml
+
+from pytest_lazy_fixtures import lf
 
 from peekingduck.pipeline.nodes.draw.instance_mask import Node
 from tests.conftest import PKD_DIR, TEST_DATA_DIR, TEST_IMAGES_DIR
@@ -316,21 +318,19 @@ class TestDrawInstanceMasks:
             outputs["img"], image_unchanged_after_pipeline
         )
 
-    # fmt: off
     @pytest.mark.parametrize(
         "pkd_node, ground_truth_image_path",
         [
-            (pytest.lazy_fixture(("draw_standard_instance_mask_node", "image_with_masks"))),
-            (pytest.lazy_fixture(("draw_standard_instance_mask_node_with_contours", "image_with_contoured_masks"))),
-            (pytest.lazy_fixture(("draw_instance_mask_node_with_blur_effect", "image_with_blur_effect"))),
-            (pytest.lazy_fixture(("draw_instance_mask_node_with_mosaic_effect", "image_with_mosaic_effect"))),
-            (pytest.lazy_fixture(("draw_instance_mask_node_with_blur_effect_background_area", "image_with_blur_effect_background_area"))),
-            (pytest.lazy_fixture(("draw_instance_mask_node_adjust_contrast", "image_adjusted_contrast"))),
-            (pytest.lazy_fixture(("draw_instance_mask_node_adjust_brightness", "image_adjusted_brightness"))),
-            (pytest.lazy_fixture(("draw_instance_mask_node_gamma_correction", "image_gamma_correction"))),
+            (lf("draw_standard_instance_mask_node"), lf("image_with_masks")),
+            (lf("draw_standard_instance_mask_node_with_contours"), lf("image_with_contoured_masks")),
+            (lf("draw_instance_mask_node_with_blur_effect"), lf("image_with_blur_effect")),
+            (lf("draw_instance_mask_node_with_mosaic_effect"), lf("image_with_mosaic_effect")),
+            (lf("draw_instance_mask_node_with_blur_effect_background_area"), lf("image_with_blur_effect_background_area")),
+            (lf("draw_instance_mask_node_adjust_contrast"), lf("image_adjusted_contrast")),
+            (lf("draw_instance_mask_node_adjust_brightness"), lf("image_adjusted_brightness")),
+            (lf("draw_instance_mask_node_gamma_correction"), lf("image_gamma_correction")),
         ],
     )
-    # fmt: on
     def test_masks(
         self,
         pkd_node,
@@ -353,6 +353,4 @@ class TestDrawInstanceMasks:
     ) -> bool:
         ground_truth_image = cv2.imread(str(ground_truth_jpeg_path))
 
-        return (
-            ssim(output_image, ground_truth_image, multichannel=True) > SSIM_THRESHOLD
-        )
+        return ssim(output_image, ground_truth_image, channel_axis=2) > SSIM_THRESHOLD
