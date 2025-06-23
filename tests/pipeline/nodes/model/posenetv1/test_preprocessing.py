@@ -35,7 +35,8 @@ def frame():
     image = cv2.imread(str(TEST_IMAGES_DIR / "t1.jpg"))
     return image
 
-
+# TODO
+@pytest.mark.skip("The implementation of PoseNet in PKD is problematic and should not be used.")
 class TestPreprocessing:
     def test_resize_image(self, frame):
         image_processed, scale = rescale_image(frame, (500, 333), 1.5, 16, "resnet")

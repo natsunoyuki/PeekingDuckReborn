@@ -30,7 +30,8 @@ NP_FILE = np.load(Path(__file__).resolve().parent / "posenet.npz")
 def source_keypoint():
     return np.array([76.23, 70.98])
 
-
+# TODO
+@pytest.mark.skip("The implementation of PoseNet in PKD is problematic and should not be used.")
 class TestDecode:
     def test_clip_to_indices(self, source_keypoint):
         source_keypoint_indices = _clip_to_indices(

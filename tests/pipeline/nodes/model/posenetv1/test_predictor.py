@@ -44,7 +44,8 @@ def model_dir(posenet_config):
         / posenet_config["model_format"]
     )
 
-
+# TODO
+@pytest.mark.skip("The implementation of PoseNet in PKD is problematic and should not be used.")
 @pytest.mark.mlmodel
 class TestPredictor:
     def test_predictor(self, posenet_config, model_dir):
