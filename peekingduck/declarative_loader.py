@@ -39,7 +39,9 @@ PEEKINGDUCK_NODE_TYPES = ["input", "augment", "model", "draw", "dabble", "output
 
 # Original PeekingDuck object detection models:
 # https://peekingduck.readthedocs.io/en/stable/nodes/model.html
-PEEKINGDUCK_OBJ_DET_MODELS = ["efficientdet", "mask_rcnn", "yolo", "yolox", "yolact_edge"]
+PEEKINGDUCK_OBJ_DET_MODELS = [
+    "model.efficientdet", "model.mask_rcnn", "model.yolo", "model.yolox", "model.yolact_edge",
+]
 
 
 class DeclarativeLoader:  # pylint: disable=too-few-public-methods, too-many-instance-attributes
