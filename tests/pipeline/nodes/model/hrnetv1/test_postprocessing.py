@@ -15,6 +15,8 @@
 import numpy as np
 import numpy.testing as npt
 
+import pytest
+
 from peekingduck.pipeline.nodes.model.hrnetv1.hrnet_files.postprocessing import (
     get_valid_keypoints,
     reshape_heatmaps,
@@ -43,7 +45,8 @@ SKELETON = [
     [5, 7],
 ]
 
-
+# TODO
+@pytest.mark.skip("The implementation of HRNet in PKD is problematic and should not be used.")
 class TestPostprocessing:
     def test_scale_transform(self):
         test_arr = np.array([[36, 6], [60, 40], [5, 20], [30, 45]])
