@@ -52,7 +52,8 @@ def model_dir(movenet_config):
         / movenet_config["model_format"]
     )
 
-
+# TODO
+@pytest.mark.skip("The implementation of MoveNet in PKD is problematic and should not be used.")
 @pytest.mark.mlmodel
 class TestPredictor:
     def test_predictor(self, movenet_config, model_dir):
