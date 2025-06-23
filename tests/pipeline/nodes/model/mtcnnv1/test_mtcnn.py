@@ -20,6 +20,7 @@ import numpy as np
 import numpy.testing as npt
 import pytest
 import yaml
+from typeguard import TypeCheckError
 
 from peekingduck.pipeline.nodes.base import WeightsDownloaderMixin
 from peekingduck.pipeline.nodes.model.mtcnn import Node
@@ -91,9 +92,13 @@ class TestMTCNN:
 
     def test_invalid_config_type(self, mtcnn_config):
         mtcnn_config["min_size"] = 0.5
-        with pytest.raises(TypeError) as excinfo:
+        #with pytest.raises(TypeError) as excinfo:
+        #    _ = Node(config=mtcnn_config)
+        #assert "type of model.mtcnn's" in str(excinfo.value)
+        with pytest.raises(TypeCheckError) as excinfo:
             _ = Node(config=mtcnn_config)
-        assert "type of model.mtcnn's" in str(excinfo.value)
+        assert "float is not an instance of int" in str(excinfo.value)
+
 
     @mock.patch.object(WeightsDownloaderMixin, "_has_weights", return_value=True)
     def test_invalid_config_model_files(self, _, mtcnn_config):
