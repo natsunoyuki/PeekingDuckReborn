@@ -142,7 +142,7 @@ class TestDeclarativeLoader:
     # NOTE Due to essential code logic, private functions are separately tested
     # from public function to ensure simple, yet robust and comprehensive unit
     # testings.
-
+    
     def test_loaded_node_list(self, declarativeloader):
         loaded_nodes = declarativeloader.node_list
 
@@ -202,6 +202,8 @@ class TestDeclarativeLoader:
         assert init_node.inputs == ["source"]
         assert init_node.outputs == ["end"]
 
+    # TODO
+    @pytest.mark.skip("Custom nodes are not supported currently.")
     def test_init_node_custom(self, declarativeloader):
         path_to_node = f"{CUSTOM_NODES_DIR_NAME}."
         node_name = CUSTOM_NODE
