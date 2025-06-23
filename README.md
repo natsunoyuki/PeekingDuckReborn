@@ -113,54 +113,60 @@ peekingduck run --config_path <path-to-config-yml-file>
 
 Use `peekingduck --help` to display help information for PeekingDuck's command-line interface.
 
-
-## Gallery
-<table>
-  <tr>
-    <td>
-      <a href="https://peekingduck.readthedocs.io/en/stable/use_cases/social_distancing.html">
-        <img src="https://raw.githubusercontent.com/natsunoyuki/PeekingDuckReborn/main/docs/source/assets/use_cases/social_distancing.gif">
-      </a>
-    </td>
-    <td>
-      <a href="https://peekingduck.readthedocs.io/en/stable/use_cases/privacy_protection_faces.html">
-        <img src="https://raw.githubusercontent.com/natsunoyuki/PeekingDuckReborn/main/docs/source/assets/use_cases/privacy_protection_faces.gif">
-      </a>
-    </td>
-    <td>
-      <a href="https://peekingduck.readthedocs.io/en/stable/use_cases/zone_counting.html">
-        <img src="https://raw.githubusercontent.com/natsunoyuki/PeekingDuckReborn/main/docs/source/assets/use_cases/zone_counting.gif">
-      </a>
-    </td>
-    <td>
-      <a href="https://peekingduck.readthedocs.io/en/stable/use_cases/object_counting_over_time.html">
-        <img src="https://raw.githubusercontent.com/natsunoyuki/PeekingDuckReborn/main/docs/source/assets/use_cases/object_counting_over_time.gif">
-      </a>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <a href="https://peekingduck.readthedocs.io/en/stable/use_cases/group_size_checking.html">
-        <img src="https://raw.githubusercontent.com/natsunoyuki/PeekingDuckReborn/main/docs/source/assets/use_cases/group_size_checking.gif">
-      </a>
-    </td>
-    <td>
-      <a href="https://peekingduck.readthedocs.io/en/stable/use_cases/privacy_protection_license_plates.html">
-        <img src="https://raw.githubusercontent.com/natsunoyuki/PeekingDuckReborn/main/docs/source/assets/use_cases/privacy_protection_license_plates.gif">
-      </a>
-    </td>
-    <td>
-      <a href="https://peekingduck.readthedocs.io/en/stable/use_cases/crowd_counting.html">
-        <img src="https://raw.githubusercontent.com/natsunoyuki/PeekingDuckReborn/main/docs/source/assets/use_cases/crowd_counting.gif">
-      </a>
-    </td>
-    <td>
-      <a href="https://peekingduck.readthedocs.io/en/stable/use_cases/people_counting_over_time.html">
-        <img src="https://raw.githubusercontent.com/natsunoyuki/PeekingDuckReborn/main/docs/source/assets/use_cases/people_counting_over_time.gif">
-      </a>
-    </td>
-  </tr>
-</table>
+## Currently Available Nodes
+The currently available nodes are listed here. `(pkd)` indicates a node implemented in the original version of PeekingDuck.
+### `input` nodes
+* `visual (pkd)`
+### `augment`
+* `brightness (pkd)`
+* `contrast (pkd)`
+* `undistort (pkd)`
+### `model` nodes
+* `csrnet (pkd)`
+* `efficientdet (pkd)`
+* `fairmot (pkd)`
+* `hrnet (pkd)`
+* `jde (pkd)`
+* `mask_rcnn (pkd)`
+* `movenet (pkd)`
+* `mtcnn (pkd)`
+* `posenet (pkd)`
+* `rt-detr`
+* `yolact_edge (pkd)`
+* `yolo_face (pkd)`
+* `yolo_license_plate (pkd)`
+* `yolo (pkd)`
+* `yolox (pkd)`
+### `dabble` nodes
+* `bbox_count (pkd)`
+* `bbox_to_3d_loc (pkd)`
+* `bbox_to_btm_midpoint (pkd)`
+* `bot_sort`
+* `camera_calibration (pkd)`
+* `check_large_groups (pkd)`
+* `check_nearby_objs (pkd)`
+* `fps (pkd)`
+* `group_nearby_objs (pkd)`
+* `keypoints_to_3d_loc (pkd)`
+* `statistics (pkd)`
+* `tracking (pkd)`
+* `zone_count (pkd)`
+### `draw` nodes
+* `bbox (pkd)`
+* `blur_bbox (pkd)`
+* `btm_midpoint (pkd)`
+* `group_bbox_and_tag (pkd)`
+* `heat_map (pkd)`
+* `instance_mask (pkd)`
+* `legend (pkd)`
+* `mosaic_bbox (pkd)`
+* `poses (pkd)`
+* `tag (pkd)`
+* `zones (pkd)`
+### `output` nodes
+* `csv_writer (pkd)`
+* `media_writer (pkd)`
+* `screen (pkd)`
 
 
 ## Acknowledgements
