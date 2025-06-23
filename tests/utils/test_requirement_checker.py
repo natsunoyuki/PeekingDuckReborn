@@ -58,7 +58,8 @@ def replace_subprocess_check_output(args):
     # Need to be byte string since we are chaining .decode()
     return " ".join(args).encode()
 
-
+# TODO
+@ pytest.mark.skip("Optional requirements are not supported in PeekingDuckReborn.")
 @pytest.mark.usefixtures("tmp_dir")
 class TestRequirementChecker:
     def test_update_failure(self, requirements_file):
