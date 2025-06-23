@@ -2,11 +2,21 @@ input: ["img", "bboxes", "bbox_labels", "bbox_scores"]
 output: ["obj_attrs", "bboxes", "bbox_labels", "bbox_scores"]
 
 # BoT-SORT configurations (without re-ID).
-track_high_thresh: 0.6
+# High detection score threshold. 
+# High confidence detections are tracked automatically.
+track_high_thresh: 0.6 
+# Low detection score threshold.
+# Low confidence detections are dropped from the detection pipeline.
 track_low_thresh: 0.1
+# New unconfirmed track score threshold.
+# Minimum detection score required for unconfirmed tracks 
+# (tracks with only one beginning frame) to be initiated.
 new_track_thresh: 0.7
+# Minimum matching score threshold to match tracked bounding boxes.
 match_thresh: 0.8
+# Number of buffer frames. Typically set to the same as frame_rate.
 track_buffer: 30
+# Frame rate. Typically set to the same as track_buffer.
 frame_rate: 30
 
 # TODO: Re-ID configurations.
