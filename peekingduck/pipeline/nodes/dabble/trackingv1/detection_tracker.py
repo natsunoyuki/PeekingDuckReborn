@@ -21,9 +21,18 @@ from peekingduck.pipeline.nodes.base import ThresholdCheckerMixin
 from peekingduck.pipeline.nodes.dabble.trackingv1.tracking_files.iou_tracker import (
     IOUTracker,
 )
-from peekingduck.pipeline.nodes.dabble.trackingv1.tracking_files.opencv_tracker import (
-    OpenCVTracker,
-)
+
+# legacy_TrackerMOSSE is found only in the opencv-contrib-python package.
+# IoU tracker will be used instead if opencv-python is installed.
+try:
+    from peekingduck.pipeline.nodes.dabble.trackingv1.tracking_files.opencv_tracker import (
+        OpenCVTracker,
+    )
+except AttributeError as e:
+    logging.warning(
+        "{}. IoU tracker will be used. Install opencv-contrib-python to use the MOSSE tracker.".format(e)
+    )
+    OpenCVTracker = IOUTracker
 
 
 class DetectionTracker(ThresholdCheckerMixin):  # pylint: disable=too-few-public-methods
@@ -46,6 +55,7 @@ class DetectionTracker(ThresholdCheckerMixin):  # pylint: disable=too-few-public
 
     tracker_constructors = {"iou": IOUTracker, "mosse": OpenCVTracker}
 
+
     def __init__(self, config: Dict[str, Any]) -> None:
         self.config = config
         self.logger = logging.getLogger(__name__)
@@ -55,6 +65,7 @@ class DetectionTracker(ThresholdCheckerMixin):  # pylint: disable=too-few-public
         self.check_valid_choice("tracking_type", {"iou", "mosse"})
 
         self.tracker = self.tracker_constructors[config["tracking_type"]](config)
+
 
     def track_detections(self, inputs: Dict[str, Any]) -> List[int]:
         """Tracks detections using the selected algorithm.
