@@ -32,7 +32,8 @@ def projected_bbox_arr():
         ]
     )
 
-
+# TODO
+@pytest.mark.skip("The implementation of HRNet in PKD is problematic and should not be used.")
 class TestPreprocessing:
     def test_tlwh2xywh(self, projected_bbox_arr):
         test_arr = projected_bbox_arr

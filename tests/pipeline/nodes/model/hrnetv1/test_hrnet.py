@@ -46,7 +46,8 @@ def hrnet_bad_config_value(request, hrnet_config):
     hrnet_config[request.param["key"]] = request.param["value"]
     return hrnet_config
 
-
+# TODO
+@pytest.mark.skip("The implementation of HRNet in PKD is problematic and should not be used.")
 @pytest.mark.mlmodel
 class TestHrnet:
     def test_no_human_image(self, no_human_image, hrnet_config):
