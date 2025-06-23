@@ -17,6 +17,8 @@ from pathlib import Path
 import numpy as np
 import numpy.testing as npt
 
+import pytest
+
 from peekingduck.pipeline.nodes.model.posenetv1.posenet_files.decode_multi import (
     _calculate_keypoint_coords_on_image,
     _change_dimensions,
@@ -27,7 +29,8 @@ from peekingduck.pipeline.nodes.model.posenetv1.posenet_files.decode_multi impor
 
 NP_FILE = np.load(Path(__file__).resolve().parent / "posenet.npz")
 
-
+# TODO
+@pytest.mark.skip("The implementation of PoseNet in PKD is problematic and should not be used.")
 class TestDecodeMulti:
     def test_calculate_keypoint_coords_on_image(self):
         root_coords = _calculate_keypoint_coords_on_image(

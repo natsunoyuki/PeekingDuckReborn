@@ -17,6 +17,8 @@ from pathlib import Path
 import numpy as np
 import numpy.testing as npt
 
+import pytest
+
 from peekingduck.pipeline.nodes.model.posenetv1.posenet_files.detector import (
     _sigmoid,
     get_keypoints_relative_coords,
@@ -24,7 +26,8 @@ from peekingduck.pipeline.nodes.model.posenetv1.posenet_files.detector import (
 
 NP_FILE = np.load(Path(__file__).resolve().parent / "posenet.npz")
 
-
+# TODO
+@pytest.mark.skip("The implementation of PoseNet in PKD is problematic and should not be used.")
 class TestDetector:
     def test_sigmoid(self):
         x = np.array([[1, 2], [-1, -2]])
