@@ -235,10 +235,10 @@ class Detector:  # pylint: disable=too-many-instance-attributes
 
             # Filters the detections to the IDs being detected as specified in the config
             labels = np.array([self.class_names[i] for i in classes[detect_filter]])
-            boxes = np.array(box[detect_filter].cpu())
+            boxes = np.array(box[detect_filter].cpu().numpy())
             boxes = np.clip(boxes, 0, 1)
-            scores = np.array(score[detect_filter].cpu())
-            masks = np.array(mask[detect_filter].cpu()).astype(np.uint8)
+            scores = np.array(score[detect_filter].cpu().numpy())
+            masks = np.array(mask[detect_filter].cpu().numpy()).astype(np.uint8)
 
         except TypeError:
             return (
