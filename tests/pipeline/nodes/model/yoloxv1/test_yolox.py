@@ -35,7 +35,10 @@ def yolox_config():
     with open(PKD_DIR / "configs" / "model" / "yolox.yml") as infile:
         node_config = yaml.safe_load(infile)
     node_config["root"] = Path.cwd()
-
+    # The original input size for YOLOX is 512, however the authors of 
+    # PeekingDuck use 416 as the default. Although in PeekingDuckReborn we have
+    # reset the value to 512, for tests 416 is required for the correct results.
+    node_config["input_size"] = 416
     return node_config
 
 
@@ -92,8 +95,6 @@ class TestYOLOX:
         npt.assert_equal(output["bbox_labels"], expected_output["bbox_labels"])
         npt.assert_equal(output["bbox_scores"], expected_output["bbox_scores"])
     
-    # TODO
-    @pytest.mark.skip()
     def test_detect_human_bboxes(self, human_image, yolox_config_cpu):
         human_img = cv2.imread(human_image)
         yolox = Node(yolox_config_cpu)
@@ -111,7 +112,6 @@ class TestYOLOX:
         npt.assert_allclose(output["bbox_scores"], expected["bbox_scores"], atol=1e-2)
 
     # TODO
-    @pytest.mark.skip()
     @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires GPU")
     def test_detect_human_bboxes_gpu(self, human_image, yolox_matrix_config):
         human_img = cv2.imread(human_image)
