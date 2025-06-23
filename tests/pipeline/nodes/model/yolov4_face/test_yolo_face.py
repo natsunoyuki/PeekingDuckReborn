@@ -19,6 +19,7 @@ import numpy as np
 import numpy.testing as npt
 import pytest
 import yaml
+from typeguard import TypeCheckError
 
 from peekingduck.pipeline.nodes.model.yolo_face import Node
 from tests.conftest import PKD_DIR, get_groundtruth
@@ -94,7 +95,7 @@ class TestYolo:
 
     def test_invalid_config_detect_ids(self, yolo_type):
         yolo_type["detect"] = 1
-        with pytest.raises(TypeError):
+        with pytest.raises(TypeCheckError):
             _ = Node(config=yolo_type)
 
     def test_invalid_config_value(self, yolo_bad_config_value):
