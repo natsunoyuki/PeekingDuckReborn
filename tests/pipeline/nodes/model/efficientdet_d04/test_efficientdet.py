@@ -19,6 +19,7 @@ import numpy as np
 import numpy.testing as npt
 import pytest
 import yaml
+from typeguard import TypeCheckError
 
 from peekingduck.pipeline.nodes.model.efficientdet import Node
 from tests.conftest import PKD_DIR, get_groundtruth
@@ -129,9 +130,12 @@ class TestEfficientDet:
 
     def test_invalid_model_type(self, efficientdet_config):
         efficientdet_config["model_type"] = 1.5
-        with pytest.raises(TypeError) as excinfo:
+        #with pytest.raises(TypeError) as excinfo:
+        #    _ = Node(config=efficientdet_config)
+        #assert (
+        #    str(excinfo.value)
+        #    == "type of model.efficientdet's `model_type` must be int; got float instead"
+        #)
+        with pytest.raises(TypeCheckError) as excinfo:
             _ = Node(config=efficientdet_config)
-        assert (
-            str(excinfo.value)
-            == "type of model.efficientdet's `model_type` must be int; got float instead"
-        )
+        assert str(excinfo.value) == "float is not an instance of int"
