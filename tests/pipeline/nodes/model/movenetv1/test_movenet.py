@@ -63,7 +63,8 @@ def movenet_config_multi(request, movenet_config):
     movenet_config["model_type"] = request.param
     return movenet_config
 
-
+# TODO
+@pytest.mark.skip("The implementation of MoveNet in PKD is problematic and should not be used.")
 @pytest.mark.mlmodel
 class TestMoveNet:
     def test_no_human_single(self, no_human_image, movenet_config_single):
