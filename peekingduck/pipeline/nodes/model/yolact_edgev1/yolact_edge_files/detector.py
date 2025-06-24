@@ -101,11 +101,13 @@ class Detector:  # pylint: disable=too-many-instance-attributes
                 cudnn.benchmark = True
                 cudnn.fastest = True
                 cudnn.deterministic = True
-                torch.set_default_tensor_type("torch.cuda.FloatTensor")
+                # torch.set_default_tensor_type("torch.cuda.FloatTensor")
+                torch.set_default_dtype(torch.float32)
                 frame = torch.from_numpy(image).cuda().float()
                 torch.cuda.synchronize()
             else:
-                torch.set_default_tensor_type("torch.FloatTensor")
+                #torch.set_default_tensor_type("torch.FloatTensor")
+                torch.set_default_dtype(torch.float32)
                 frame = torch.from_numpy(image).float()
         img_shape = image.shape[:2]
         model = self.yolact_edge
