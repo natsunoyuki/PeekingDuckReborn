@@ -29,7 +29,7 @@ The links above lead to the original PeekingDuck documentation. The documentatio
 - [X] Replace `pkg_resources` with `importlib.metadata`.
 - [X] Added BoT-SORT bounding box tracker (without reID) dabble node.
 - [X] Added RT-DETR object detector model node.
-- [ ] Modernize test suite.
+- [ ] Modernize tests (WIP).
 - [ ] Remove/deprecate PeekingDuck Mosse tracker.
 - [ ] Remove/deprecate PeekingDuck pose estimation models. 
 - [ ] Implement re-ID for BoT-SORT tracker dabble node. 
