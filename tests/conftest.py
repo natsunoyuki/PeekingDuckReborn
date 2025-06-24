@@ -34,6 +34,7 @@ MULTI_PERSON_IMAGES = ["t1.jpg", "t4.jpg"]
 HUMAN_VIDEOS = ["humans_mot.mp4"]
 # Folders of frames from the video sequence
 HUMAN_VIDEO_SEQUENCES = ["two_people_crossing"]
+HUMAN_VIDEO_SEQUENCES_2 = ["three_people_crossing"]
 
 LICENSE_PLATE_IMAGES = ["tcar1.jpg", "tcar3.jpg", "tcar4.jpg"]
 NO_LICENSE_PLATE_IMAGES = ["black.jpg", "t3.jpg"]
@@ -198,12 +199,47 @@ def human_video_sequence(request):
     gc.collect()
 
 
+@pytest.fixture(params=HUMAN_VIDEO_SEQUENCES_2)
+def human_video_sequence_2(request):
+    """This actually returns a list of dictionaries each containing:
+    - A video frame
+    - Bounding boxes
+    - Scores
+    - Labels
+
+    Yielding bounding box, scores and labels allows us to test dabble.bot_sort 
+    without having to attach a object detector before it.
+
+    Yielding a list of frames instead of a video file allows for better control
+    of test data and frame specific manipulations to trigger certain code
+    branches.
+    """
+    sequence_dir = TEST_DATA_DIR / "video_sequences" / request.param
+    with open(sequence_dir / "detections.yml") as infile:
+        detections = yaml.safe_load(infile.read())
+    # Yielding video sequence name as well in case there are specific things to
+    # check for based on video content
+    yield request.param, [
+        {
+            "img": cv2.imread(str(sequence_dir / f"{key}.jpg")),
+            "bboxes": np.array(val["bboxes"]),
+            "bbox_labels": np.array(val["bbox_labels"]),
+            "bbox_scores": np.array(val["bbox_scores"]),
+        }
+        for key, val in detections.items()
+    ]
+    K.clear_session()
+    gc.collect()
+
+
 @pytest.fixture(params=HUMAN_VIDEO_SEQUENCES)
 def human_video_sequence_with_empty_frames(request):
     """This actually returns a list of dictionaries each containing:
     - A video frame
     - Bounding boxes
-
+    - Scores
+    - Labels
+    
     Yielding bounding box allows us to test dabble.tracking without having to
     attach a object detector before it.
 
@@ -232,6 +268,46 @@ def human_video_sequence_with_empty_frames(request):
     # check for based on video content
     yield request.param, sequence
 
+    K.clear_session()
+    gc.collect()
+
+
+@pytest.fixture(params=HUMAN_VIDEO_SEQUENCES_2)
+def human_video_sequence_with_empty_frames_2(request):
+    """This actually returns a list of dictionaries each containing:
+    - A video frame
+    - Bounding boxes
+
+    Yielding bounding box, scores and labels allows us to test dabble.bot_sort 
+    without having to attach a object detector before it.
+
+    Yielding a list of frames instead of a video file allows for better control
+    of test data and frame specific manipulations to trigger certain code
+    branches.
+
+    Additionally, we overwrite frames 0 and 4 to be blank frames to test if the
+    trackers can handle no detections.
+    """
+    sequence_dir = TEST_DATA_DIR / "video_sequences" / request.param
+    with open(sequence_dir / "detections.yml") as infile:
+        detections = yaml.safe_load(infile.read())
+    sequence = [
+        {
+            "img": cv2.imread(str(sequence_dir / f"{key}.jpg")),
+            "bboxes": np.array(val["bboxes"]),
+            "bbox_labels": np.array(val["bbox_labels"]),
+            "bbox_scores": np.array(val["bbox_scores"]),
+        }
+        for key, val in detections.items()
+    ]
+    for i in [0, 4]:
+        sequence[i]["img"] = np.zeros_like(sequence[i]["img"])
+        sequence[i]["bboxes"] = np.empty((0, 4))
+        sequence[i]["bbox_labels"] = np.empty(0)
+        sequence[i]["bbox_scores"] = np.empty(0)
+    # Yielding video sequence name as well in case there are specific things to
+    # check for based on video content
+    yield request.param, sequence
     K.clear_session()
     gc.collect()
 
