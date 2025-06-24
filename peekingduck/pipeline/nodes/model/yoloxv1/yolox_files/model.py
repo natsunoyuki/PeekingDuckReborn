@@ -309,7 +309,10 @@ class YOLOXHead(nn.Module):  # pylint: disable=too-many-instance-attributes
         grids = []
         strides = []
         for (hsize, wsize), stride in zip(self.sizes, self.strides):
-            yv, xv = torch.meshgrid([torch.arange(hsize), torch.arange(wsize)])
+            # https://docs.pytorch.org/docs/stable/generated/torch.meshgrid.html
+            yv, xv = torch.meshgrid(
+                [torch.arange(hsize), torch.arange(wsize)], indexing="ij",
+            )
             grid = torch.stack((xv, yv), 2).view(1, -1, 2)
             grids.append(grid)
             shape = grid.shape[:2]
