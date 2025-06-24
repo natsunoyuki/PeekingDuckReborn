@@ -1,4 +1,4 @@
-# Modifications copyright 2025 Natsunoyuki AI Laboratory
+# Copyright 2025 Natsunoyuki AI Laboratory
 #
 # PeekingDuckReborn is free software: you can redistribute it and/or modify it 
 # under the terms of the GNU General Public License as published by the Free 
@@ -13,7 +13,6 @@
 # You should have received a copy of the GNU General Public License along with 
 # PeekingDuckReborn. If not, see <https://www.gnu.org/licenses/>.
 
-import platform
 from pathlib import Path
 from unittest import TestCase
 
