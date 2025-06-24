@@ -11,7 +11,7 @@ from peekingduck.pipeline.nodes.dabble.bot_sort import Node
 
 # Frame index for manual manipulation of detections to trigger some
 # branches
-SEQ_IDX = 4
+SEQ_IDX = 3
 SIZE = (400, 600, 3)
 
 
@@ -178,11 +178,13 @@ class TestBotSortTracking:
                 assert outputs["obj_attrs"]["ids"] == prev_tags
             prev_tags = outputs["obj_attrs"]["ids"]
 
-    # TODO
-    @pytest.mark.skip()
     def test_should_remove_lost_tracks(self, bot_sort_config, human_video_sequence_2):
         """NOTE: We are manually making a track to be lost since we don't
-        have enough frames for it to occur naturally."""
+        have enough frames for it to occur naturally.
+        
+        Please refer to the BoT-SORT source code to see how tracks are removed.
+        https://github.com/natsunoyuki/BoT-SORT/blob/main/src/bot_sort/bot_sort.py#L282
+        """
         _, detections = human_video_sequence_2
         # Add a new detection at the specified SEQ_IDX
         detections[SEQ_IDX]["bboxes"] = np.append(
@@ -196,32 +198,30 @@ class TestBotSortTracking:
         )   
 
         tracker = Node(bot_sort_config)
+        # Artificially shorten the max_time_lost for testing.
+        tracker.tracker.tracker.tracker.max_time_lost = 1
 
         prev_tags = []
         for i, inputs in enumerate(detections):
-            # Set the track which doesn't have a detection to be "lost"
-            # by setting `lost > max_lost`
-            if i == SEQ_IDX + 1:
-                tracker.tracker.tracker.tracks[2].lost = (
-                    tracker.tracker.tracker.max_lost + 1
-                )
             outputs = tracker.run(inputs)
+
             assert len(outputs["obj_attrs"]["ids"]) == len(inputs["bboxes"])
             # This happens to be true for the test case, not a guaranteed
             # behaviour during normal operation.
-            assert len(tracker.tracker.tracker.tracks) == len(inputs["bboxes"])
+            assert len(tracker.tracker.tracker.tracker.tracked_stracks) == len(inputs["bboxes"])
             # Special handling of comparing tag during and right after
-            # seq_idx since a detection got added and removed
+            # seq_idx since a detection got added and removed.
             if i == SEQ_IDX:
-                assert outputs["obj_attrs"]["ids"] == prev_tags + [2]
+                assert outputs["obj_attrs"]["ids"] == prev_tags + [4]
             elif i == SEQ_IDX + 1:
                 assert outputs["obj_attrs"]["ids"] == prev_tags[:-1]
+                assert tracker.tracker.tracker.tracker.removed_stracks[0].track_id == 4
             elif i > 0:
                 assert outputs["obj_attrs"]["ids"] == prev_tags
             prev_tags = outputs["obj_attrs"]["ids"]
 
     # TODO
-    @pytest.mark.skip()
+    @pytest.mark.skip("Not implemented in the bot-sort source code yet.")
     def test_reset_model(self, tracker, human_video_sequence):
         mot_metadata = {"reset_model": True}
         _, detections = human_video_sequence
