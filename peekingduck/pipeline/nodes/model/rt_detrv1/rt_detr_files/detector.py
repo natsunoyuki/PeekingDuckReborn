@@ -3,7 +3,8 @@
 import logging
 from pathlib import Path
 from typing import List, Tuple, Union
-
+import cv2
+from PIL import Image
 import numpy as np
 import torch
 from transformers import RTDetrForObjectDetection, RTDetrImageProcessor
@@ -105,6 +106,8 @@ class Detector:  # pylint: disable=too-many-instance-attributes
 
 
     def preprocess(self, image, return_tensors="pt"):
+        # HuggingFace image processors take in PIL images typically...
+        image = Image.fromarray(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
         inputs = self.image_processor(images=image, return_tensors=return_tensors)
         inputs = inputs.to(self.device)
         return inputs
