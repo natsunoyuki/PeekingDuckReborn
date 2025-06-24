@@ -29,19 +29,18 @@ The links above lead to the original PeekingDuck documentation. The documentatio
 - [X] Replace `pkg_resources` with `importlib.metadata`.
 - [X] Added BoT-SORT bounding box tracker (without reID) dabble node.
 - [X] Added RT-DETR object detector model node.
+- [ ] Modernize test suite.
 - [ ] Remove/deprecate PeekingDuck Mosse tracker.
 - [ ] Remove/deprecate PeekingDuck pose estimation models. 
-- [ ] Implement norfair-sort object tracker.
 - [ ] Implement re-ID for BoT-SORT tracker dabble node. 
 - [ ] Implement advanced pose estimation models in the models node.
 - [ ] Implement multi-GPU support.
 - [ ] Implement ONNX deployment for all models in the models node.
-- [ ] Modernize test suite.
+- [ ] Implement norfair-sort object tracker.
 - [ ] Updated documentation on the internet to replace [the original](https://peekingduck.readthedocs.io/en/stable/index.html#what-is-peekingduck).
 - [ ] Updated model weights repository on the internet to replace [the original](https://storage.googleapis.com/peekingduck/models)
 
 ## Features
-
 ### Build realtime computer vision pipelines
 * PeekingDuck enables you to build powerful computer vision pipelines with minimal lines of code.
 
@@ -76,7 +75,6 @@ pip install ".[<install-option>]"
 ```
 1. `test`: Test functionality with `pytest`.
 
-
 ### Verifying the Installation
 ```bash
 peekingduck verify-install
@@ -106,18 +104,20 @@ If you have a webcam, you should see a man waving on the output screen with
 
 Terminate the program by clicking on the output screen and pressing `q`.
 
-Run the pipeline with a specified configuration `yml` file.
+Use `peekingduck --help` to display help information for PeekingDuck's command-line interface.
+
+### Specifying YAML Configuration Files
+
+Run the pipeline with a specified configuration `.yml` file.
 ```bash
 peekingduck run --config_path <path-to-config-yml-file>
 ```
-
-Use `peekingduck --help` to display help information for PeekingDuck's command-line interface.
 
 ## Currently Available Nodes
 The currently available nodes are listed here. `(pkd)` indicates a node implemented in the original version of PeekingDuck.
 ### `input` nodes
 * `visual (pkd)`
-### `augment`
+### `augment` nodes
 * `brightness (pkd)`
 * `contrast (pkd)`
 * `undistort (pkd)`
@@ -170,8 +170,8 @@ The currently available nodes are listed here. `(pkd)` indicates a node implemen
 
 
 ## Acknowledgements
-PeekingDuckReborn is an independent offshoot of [PeekingDuck](https://github.com/aisingapore/PeekingDuck), which was previously supported by the National Research Foundation, Singapore under its AI Singapore Programme. 
+PeekingDuckReborn is an independent derivative of [PeekingDuck](https://github.com/aisingapore/PeekingDuck), which was supported by the National Research Foundation, Singapore under its AI Singapore Programme. 
 
 Any opinions, findings and conclusions or recommendations expressed in this material are those of the authors of PeekingDuckReborn and do not reflect the views of National Research Foundation, Singapore, or of AI Singapore, or of the original authors of [PeekingDuck](https://github.com/aisingapore/PeekingDuck).
 
-PeekingDuckReborn is neither supported or funded by, nor affiliated with the National Research Foundation, Singapore, or AI Singapore, or the original authors of [PeekingDuck](https://github.com/aisingapore/PeekingDuck).
+PeekingDuckReborn is neither supported nor funded by, nor affiliated with the National Research Foundation, Singapore, or AI Singapore, or the original authors of [PeekingDuck](https://github.com/aisingapore/PeekingDuck).
