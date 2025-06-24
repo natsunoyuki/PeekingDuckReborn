@@ -107,7 +107,6 @@ class TestNode:
         with pytest.raises(TypeError):
             IncorrectNode({})
 
-    @pytest.mark.skip()
     def test_node_wrong_config_type(self):
         with pytest.raises(TypeCheckError) as excinfo:
             ConcreteNode(config={"source": 0.0})
