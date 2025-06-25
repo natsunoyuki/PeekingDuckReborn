@@ -60,7 +60,7 @@ def camera_calibration_node():
             "output": ["img"],
             "num_corners": [10, 7],
             "scale_factor": 2,
-            "file_path": "PeekingDuck/data/camera_calibration_coeffs.yml",
+            "file_path": "camera_calibration_coeffs.yml",
         }
     )
     return node
