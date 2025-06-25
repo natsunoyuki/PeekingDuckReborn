@@ -47,7 +47,13 @@ def invalid_threshold(request):
     yield request.param
 
 
-@pytest.fixture(params=["iou", "mosse"])
+# PeekingDuckReborn does not natively support the Mosse tracker.
+@pytest.fixture(params=
+    [
+        "iou", 
+        # "mosse"
+    ]
+)
 def tracking_config_type(tracking_config, request):
     tracking_config["tracking_type"] = request.param
     return tracking_config
@@ -173,6 +179,7 @@ class TestTracking:
                 assert outputs["obj_attrs"]["ids"] == prev_tags
             prev_tags = outputs["obj_attrs"]["ids"]
 
+    @pytest.mark.skip("PeekingDuckReborn does not support the Mosse tracker.")
     def test_should_remove_update_failures(self, tracking_config, human_video_sequence):
         """This only applies to OpenCV Tracker.
 
