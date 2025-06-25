@@ -50,6 +50,9 @@ def yolact_edge_config():
     with open(PKD_DIR / "configs" / "model" / "yolact_edge.yml") as infile:
         node_config = yaml.safe_load(infile)
     node_config["root"] = Path.cwd()
+    # The following prevents pytest from creating `peekingduck_weights/`
+    # in the parent directory of `PeekingDuckReborn/`.
+    node_config["weights_parent_dir"] = str(PKD_DIR.parent)
     node_config["score_threshold"] = 0.2
     return node_config
 

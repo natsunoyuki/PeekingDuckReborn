@@ -49,6 +49,9 @@ def posenet_config():
     with open(PKD_DIR / "configs" / "model" / "posenet.yml") as infile:
         node_config = yaml.safe_load(infile)
     node_config["root"] = Path.cwd()
+    # The following prevents pytest from creating `peekingduck_weights/`
+    # in the parent directory of `PeekingDuckReborn/`.
+    node_config["weights_parent_dir"] = str(PKD_DIR.parent)
     return node_config
 
 
