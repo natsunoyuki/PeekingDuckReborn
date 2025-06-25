@@ -125,12 +125,12 @@ The currently available nodes are listed here. `(pkd)` indicates a node implemen
 * `csrnet (pkd)`
 * `efficientdet (pkd)`
 * `fairmot (pkd)`
-* `hrnet (pkd)`
+* `hrnet (pkd)` - Buggy implementation, should not be used.
 * `jde (pkd)`
 * `mask_rcnn (pkd)`
-* `movenet (pkd)`
+* `movenet (pkd)` - Buggy implementation, should not be used.
 * `mtcnn (pkd)`
-* `posenet (pkd)`
+* `posenet (pkd)` - Buggy implementation, should not be used.
 * `rt-detr`
 * `yolact_edge (pkd)`
 * `yolo_face (pkd)`
@@ -167,6 +167,13 @@ The currently available nodes are listed here. `(pkd)` indicates a node implemen
 * `csv_writer (pkd)`
 * `media_writer (pkd)`
 * `screen (pkd)`
+
+## Things to Note
+### Images Are Numpy Arrays with BGR Channels
+In the pipeline, images are `numpy` arrays with shape `[H, W, C]`, where `C` corresponds to Blue-Green-Red channels following OpenCV convention. Please keep this in mind when implementing new nodes or tests.
+
+### Buggy Original Pose Estimation Models
+The original PeekingDuck pose estimation models `hrnet`, `movenet` and `posenet` are extremely buggy and should not be used.
 
 
 ## Acknowledgements
