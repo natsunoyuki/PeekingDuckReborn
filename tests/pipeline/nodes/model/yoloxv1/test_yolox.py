@@ -50,6 +50,9 @@ def yolox_config():
     with open(PKD_DIR / "configs" / "model" / "yolox.yml") as infile:
         node_config = yaml.safe_load(infile)
     node_config["root"] = Path.cwd()
+    # The following prevents pytest from creating `peekingduck_weights/`
+    # in the parent directory of `PeekingDuckReborn/`.
+    node_config["weights_parent_dir"] = str(PKD_DIR.parent)
     # The original input size for YOLOX is 512, however the authors of 
     # PeekingDuck use 416 as the default. Although in PeekingDuckReborn we have
     # reset the value to 512, for tests 416 is required for the correct results.

@@ -51,10 +51,12 @@ def mask_rcnn_config():
     with open(PKD_DIR / "configs" / "model" / "mask_rcnn.yml") as infile:
         node_config = yaml.safe_load(infile)
     node_config["root"] = Path.cwd()
+    # The following prevents pytest from creating `peekingduck_weights/`
+    # in the parent directory of `PeekingDuckReborn/`.
+    node_config["weights_parent_dir"] = str(PKD_DIR.parent)
     node_config["iou_threshold"] = 0.5
     node_config["score_threshold"] = 0.5
     node_config["mask_threshold"] = 0.5
-
     return node_config
 
 

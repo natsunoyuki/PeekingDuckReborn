@@ -44,8 +44,10 @@ def csrnet_config(request):
     with open(PKD_DIR / "configs" / "model" / "csrnet.yml") as infile:
         node_config = yaml.safe_load(infile)
     node_config["root"] = Path.cwd()
+    # The following prevents pytest from creating `peekingduck_weights/`
+    # in the parent directory of `PeekingDuckReborn/`.
+    node_config["weights_parent_dir"] = str(PKD_DIR.parent)
     node_config["model_type"] = request.param
-
     return node_config
 
 
