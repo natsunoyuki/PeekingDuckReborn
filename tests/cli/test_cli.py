@@ -75,10 +75,11 @@ class TestCli:
 
     def test_main_py_log_level_debug(self):
         # setup unit test env
-        tmp_dir = Path.cwd()
-        print(f"\ntmp_dir={tmp_dir}")
+        #tmp_dir = Path.cwd()
+        #print(f"\ntmp_dir={tmp_dir}")
         unit_test_run_dir = Path(__file__).parents[3]
         print(f"unit_test_run_dir={unit_test_run_dir}")
+
         nodes = {
             "nodes": [
                 {
@@ -90,6 +91,7 @@ class TestCli:
                 }
             ]
         }
+
         os.chdir(unit_test_run_dir)
         # test_config_path = tmp_dir / "test_config.yml"
         test_config_path = "test_config.yml"
@@ -110,5 +112,8 @@ class TestCli:
         out_str = out.decode("utf-8")
         print(out_str)
         exit_status = proc.returncode
+
+        os.remove(test_config_path)
+
         assert "DEBUG" in out_str
         assert exit_status == 0
