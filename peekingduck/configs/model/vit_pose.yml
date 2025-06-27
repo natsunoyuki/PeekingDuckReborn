@@ -1,0 +1,26 @@
+input: ["img", "bboxes"]
+output: ["keypoints", "keypoint_scores", "keypoint_conns"]
+
+# Keypoint detection threshold.
+score_threshold: 0.5
+
+# Flag to use the model weights hosted on HuggingFace or not.
+huggingface: True
+# https://huggingface.co/docs/transformers/main/en/model_doc/rt_detr
+model_type: vitpose-plus-small
+# Models available:
+# vitpose-plus-small, vitpose-plus-base, vitpose-plus-large, vitpose-plus-huge,
+# vitpose-base, vitpose-base-simple, vitpose-base-coco-aic-mpii.
+# Model directory on HuggingFace: https://huggingface.co/usyd-community.
+huggingface_model_dir: usyd-community
+
+weights_parent_dir: null
+weights: {
+  pytorch: {
+    model_subdir: vit_pose,
+  },
+}
+model_format: pytorch
+
+# Input resolution. Do not touch this. Baked into the model.
+resolution: {width: 192, height: 256}
