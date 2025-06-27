@@ -179,12 +179,12 @@ class Detector:  # pylint: disable=too-many-instance-attributes
                 axis=0
             )
             
-            # Sort by kpt_labels 0 to 16.
+            # Sort all 17 keypoints by kpt_labels from 0 to 16.
             want = np.argsort(kpt_labels)
             kpt_scores = kpt_scores[want]
             kpts = kpts[want]
             
-            # Mask out low confidence keypoints.
+            # Mask out low confidence keypoints by -1.
             mask = kpt_scores >= self.score_threshold
             kpts[np.logical_not(mask)] = -1
 
