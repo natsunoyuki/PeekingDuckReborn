@@ -57,7 +57,7 @@ class Detector:  # pylint: disable=too-many-instance-attributes
         model_dir: Union[Path, str],
         model_type: str="vitpose-plus-small",
         resolution: Dict[int, int]={"width": 192, "height": 256},
-        score_threshold: float=0.1,
+        keypoint_score_threshold: float=0.5,
     ) -> None:
         self.logger = logging.getLogger(__name__)
         self.device = torch.device(
@@ -69,7 +69,7 @@ class Detector:  # pylint: disable=too-many-instance-attributes
         self.model_path = str(self.model_dir / model_type)
 
         self.resolution = resolution
-        self.score_threshold = score_threshold
+        self.keypoint_score_threshold = keypoint_score_threshold
 
         self.model, self.image_processor = self.create_model()
 
@@ -95,13 +95,8 @@ class Detector:  # pylint: disable=too-many-instance-attributes
     def predict_keypoints_from_image(
         self, image: np.ndarray, bboxes: np.ndarray,
     ) -> Tuple[np.ndarray, np.ndarray, List]:
-        """Detects bounding boxes of selected object categories from an image.
-
-        The input image is first scaled according to the `input_size`
-        configuration option. Detection results will be filtered according to
-        `iou_threshold`, `score_threshold`, and `detect_ids` configuration
-        options. Bounding boxes coordinates are then normalized w.r.t. the
-        input `image` size.
+        """Detects keypoints corresponding to detected human bounding boxes in 
+        an image frame.
 
         Args:
             image (np.ndarray): Input image.
@@ -120,22 +115,33 @@ class Detector:  # pylint: disable=too-many-instance-attributes
         # Store the original image size to normalize bbox later
         image_shape = image.shape[:2]
 
-        bboxes = xyxyn2tlwh(bboxes, height=image_shape[0], width=image_shape[1])
-
-        inputs = self.preprocess(image, bboxes=bboxes)
-        
-        self.model = self.model.to(self.device)
-        with torch.no_grad():
-            result = self.model(**inputs)
-
-        keypoints, keypoint_scores, keypoint_conns = self.postprocess(
-            result, bboxes, image_shape
-        )
+        if len(bboxes) > 0:
+            bboxes = xyxyn2tlwh(
+                bboxes, height=image_shape[0], width=image_shape[1]
+            )
+            inputs = self.preprocess(image, bboxes=bboxes)
+            result = self.forward(inputs=inputs)
+            keypoints, keypoint_scores, keypoint_conns = self.postprocess(
+                result, bboxes, image_shape
+            )
+        else:
+            keypoints = np.zeros(0)
+            keypoint_scores = np.zeros(0)
+            keypoint_conns = np.zeros(0)
 
         return keypoints, keypoint_scores, keypoint_conns
 
 
+    def forward(self, inputs):
+        """Forward pass with the model."""
+        self.model = self.model.to(self.device)
+        with torch.no_grad():
+            result = self.model(**inputs)
+        return result
+
+
     def preprocess(self, image, bboxes, return_tensors="pt"):
+        """Preprocess input images for ingestion by VITPose."""
         # HuggingFace image processors take in PIL images typically...
         image = Image.fromarray(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
         inputs = self.image_processor(
@@ -148,6 +154,8 @@ class Detector:  # pylint: disable=too-many-instance-attributes
     
 
     def postprocess(self, predictions, bboxes, image_shape):
+        """Postprocess VITPose predictions into a format compatible with PKDR's
+        data pipeline."""
         result = self.image_processor.post_process_pose_estimation(
             predictions, boxes=[bboxes],
         )[0]
@@ -185,7 +193,7 @@ class Detector:  # pylint: disable=too-many-instance-attributes
             kpts = kpts[want]
             
             # Mask out low confidence keypoints by -1.
-            mask = kpt_scores >= self.score_threshold
+            mask = kpt_scores >= self.keypoint_score_threshold
             kpts[np.logical_not(mask)] = -1
 
             keypoints[i, :, :] = kpts
@@ -200,13 +208,14 @@ class Detector:  # pylint: disable=too-many-instance-attributes
             "VITPose model loaded with the following configs:\n\t"
             f"Model type: {self.model_type}\n\t"
             f"Input resolution: {self.resolution}\n\t"
-            f"Score threshold: {self.score_threshold}\n\t"
+            f"Keypoint score threshold: {self.keypoint_score_threshold}\n\t"
         )
 
 
 def get_mscoco_keypoint_connections(
     keypoint: np.ndarray, mask: np.ndarray
 ) -> np.ndarray:
+    """Builds the keypoint connections between valid keypoints."""
     connections = []
     for start_joint, end_joint in SKELETON:
         if mask[start_joint - 1] and mask[end_joint - 1]:

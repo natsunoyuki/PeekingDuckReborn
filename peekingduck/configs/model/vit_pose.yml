@@ -2,7 +2,7 @@ input: ["img", "bboxes"]
 output: ["keypoints", "keypoint_scores", "keypoint_conns"]
 
 # Keypoint detection threshold.
-score_threshold: 0.5
+keypoint_score_threshold: 0.5
 
 # Flag to use the model weights hosted on HuggingFace or not.
 huggingface: True

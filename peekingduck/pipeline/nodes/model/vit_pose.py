@@ -57,9 +57,10 @@ class Node(AbstractNode):  # pylint: disable=too-few-public-methods
         resolution (:obj:`dict[int, int]`): 
             **default={width: 256, height: 192}**. |br|
             Input image resolution of the VITPose model.
-        score_threshold (:obj:`float`): **[0, 1], default = 0.25**. |br|
+        keypoint_score_threshold (:obj:`float`): 
+            **[0, 1], default = 0.5**. |br|
             Keypoints with confidence score below the threshold will be
-            discarded.
+            replaced by -1.
 
     References:
         ViTPose: Simple Vision Transformer Baselines for Human Pose Estimation:
@@ -99,6 +100,6 @@ class Node(AbstractNode):  # pylint: disable=too-few-public-methods
             "resolution.width": int,
             "model_format": str,
             "model_type": str,
-            "score_threshold": float,
+            "keypoint_score_threshold": float,
             "weights_parent_dir": Optional[str],
         }

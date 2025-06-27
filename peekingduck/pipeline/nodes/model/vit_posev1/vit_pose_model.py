@@ -43,7 +43,7 @@ class VITPoseModel(ThresholdCheckerMixin, WeightsDownloaderMixin):
         self.config = config
         self.logger = logging.getLogger(__name__)
 
-        self.check_bounds(["score_threshold"], "[0, 1]")
+        self.check_bounds(["keypoint_score_threshold"], "[0, 1]")
 
         use_hf = self.config.get("huggingface", True)
         if use_hf is True:
@@ -56,7 +56,7 @@ class VITPoseModel(ThresholdCheckerMixin, WeightsDownloaderMixin):
             model_dir,
             self.config["model_type"],
             self.config["resolution"],
-            self.config["score_threshold"],
+            self.config["keypoint_score_threshold"],
         )
 
 
