@@ -29,11 +29,11 @@ The links above lead to the original PeekingDuck documentation. The documentatio
 - [X] Replace `pkg_resources` with `importlib.metadata`.
 - [X] Added BoT-SORT bounding box tracker (without reID) dabble node.
 - [X] Added RT-DETR object detector model node.
+- [X] Implement advanced pose estimation models (VITPose) in the models node.
 - [ ] Modernize tests (WIP).
 - [ ] Remove/deprecate PeekingDuck Mosse tracker.
 - [ ] Remove/deprecate PeekingDuck pose estimation models. 
 - [ ] Implement re-ID for BoT-SORT tracker dabble node. 
-- [ ] Implement advanced pose estimation models in the models node.
 - [ ] Implement multi-GPU support.
 - [ ] Implement ONNX deployment for all models in the models node.
 - [ ] Implement norfair-sort object tracker.
@@ -132,6 +132,7 @@ The currently available nodes are listed here. `(pkd)` indicates a node implemen
 * `mtcnn (pkd)`
 * `posenet (pkd)` - Buggy implementation, should not be used.
 * `rt-detr`
+* `vit_pose`
 * `yolact_edge (pkd)`
 * `yolo_face (pkd)`
 * `yolo_license_plate (pkd)`
