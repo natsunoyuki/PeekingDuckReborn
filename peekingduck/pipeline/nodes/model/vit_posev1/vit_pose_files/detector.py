@@ -164,8 +164,8 @@ class Detector:  # pylint: disable=too-many-instance-attributes
             kpt_labels = r.get("labels").detach().cpu().numpy()
             
             # Normalize keypoints coordinates.
-            kpts[:, 0] = kpts[:, 0] / image_shape[0]
-            kpts[:, 1] = kpts[:, 1] / image_shape[1]
+            kpts[:, 0] = kpts[:, 0] / image_shape[1]
+            kpts[:, 1] = kpts[:, 1] / image_shape[0]
 
             # Fill in the missing MSCOCO keypoints. There are 17 in total.
             missing_kpts = np.array(
@@ -185,7 +185,7 @@ class Detector:  # pylint: disable=too-many-instance-attributes
             kpts = kpts[want]
             
             # Mask out low confidence keypoints.
-            mask = kpt_scores > self.score_threshold
+            mask = kpt_scores >= self.score_threshold
             kpts[np.logical_not(mask)] = -1
 
             keypoints[i, :, :] = kpts
