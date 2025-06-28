@@ -16,6 +16,7 @@
 import logging
 from typing import Any, Dict, List, Tuple
 
+from pathlib import Path
 import numpy as np
 
 from peekingduck.pipeline.nodes.base import (
@@ -45,16 +46,23 @@ class VITPoseModel(ThresholdCheckerMixin, WeightsDownloaderMixin):
 
         self.check_bounds(["keypoint_score_threshold"], "[0, 1]")
 
-        use_hf = self.config.get("huggingface", True)
-        if use_hf is True:
-            model_dir = self.config.get("huggingface_model_dir", HF_REPO)
+        local_weights_path = self.config.get("local_weights_path", None)
+        if local_weights_path is None:
+            if self.config.get("huggingface", True) is True:
+                # Download pre-trained weights from HuggingFace.
+                model_dir = Path(self.config.get("huggingface_model_dir", HF_REPO))
+                # Account for windows `\`, as HF repos use only `/`.
+                model_path = str(model_dir / self.config["model_type"]).replace("\\", "/")
+            else:
+                # Load HuggingFace pre-trained weights from a local directory.
+                model_dir = self._find_paths()
+                model_path = model_dir / self.config["model_type"]
         else:
-            model_dir = self._find_paths()
-
+            # Absolute path to custom local weights directory.
+            model_path = Path(local_weights_path)
 
         self.detector = Detector(
-            model_dir,
-            self.config["model_type"],
+            model_path,
             self.config["resolution"],
             self.config["keypoint_score_threshold"],
         )

@@ -54,8 +54,7 @@ class Detector:  # pylint: disable=too-many-instance-attributes
     """
     def __init__(  # pylint: disable=too-many-arguments
         self,
-        model_dir: Union[Path, str],
-        model_type: str="vitpose-plus-small",
+        model_path: Union[str, Path],
         resolution: Dict[int, int]={"width": 192, "height": 256},
         keypoint_score_threshold: float=0.5,
     ) -> None:
@@ -63,12 +62,10 @@ class Detector:  # pylint: disable=too-many-instance-attributes
         self.device = torch.device(
             "cuda" if torch.cuda.is_available() else "cpu"
         )
-        
-        self.model_dir = Path(model_dir)
-        self.model_type = model_type
-        self.model_path = str(self.model_dir / model_type)
+        self.model_path = model_path
 
         self.resolution = resolution
+        
         self.keypoint_score_threshold = keypoint_score_threshold
 
         self.model, self.image_processor = self.create_model()
@@ -206,7 +203,7 @@ class Detector:  # pylint: disable=too-many-instance-attributes
     def log(self):
         self.logger.info(
             "VITPose model loaded with the following configs:\n\t"
-            f"Model type: {self.model_type}\n\t"
+            f"Model path: {self.model_path}\n\t"
             f"Input resolution: {self.resolution}\n\t"
             f"Keypoint score threshold: {self.keypoint_score_threshold}\n\t"
         )

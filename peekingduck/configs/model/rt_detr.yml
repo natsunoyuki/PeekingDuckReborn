@@ -16,6 +16,9 @@ model_type: rtdetr_r50vd
 # Model directory on HuggingFace: https://huggingface.co/PekingU.
 huggingface_model_dir: PekingU
 
+# Path to local custom weights.
+local_weights_path: null
+
 # TODO: RT-DETR will download the model and image processor weights and configs
 # from HuggingFace Hub: https://huggingface.co/PekingU/models. The weights are
 # typically stored under ~/.cache/huggingface/hub/, and not under the folder

@@ -113,8 +113,39 @@ Run the pipeline with a specified configuration `.yml` file.
 peekingduck run --config_path <path-to-config-yml-file>
 ```
 
+### Local Weights Directory
+In developer mode, the original PeekingDuck model weights will be downloaded to `PeekingDuckReborn/peekingduck_weights/`. Torchvision and HuggingFace model weights will be downloaded to the local cache directory. In general, `peekingduck_weights/` will have the following directory structure:
+```
+peekingduck_weights/
+└───model_name_1/
+        ├───pytorch/
+        |       ├─── model_type_1/
+        |       └─── model_type_2/
+        └───tensorflow/
+                ├─── model_type_1/
+                └─── model_type_2/
+...
+```
+where `model_name` corresponds to the node name, e.g. `yolox`, while `model_type` corresponds to `model_type` in the corresponding node, e.g. `yolox-s`. While most of the models have pytorch weights, some models have tensorflow weights. We follow the original convention set in PeekingDuck and separate the weights according to whether they are written in pytorch or tensorflow.
+
+
+HuggingFace and Torchvision weights can also be manually placed under `peekingduck_weights/`. For example, for the `rt_detr` model, we can manually download the <a href="https://huggingface.co/PekingU/rtdetr_r18vd/tree/main">`rtdetr_r18vd/` weights from HuggingFace</a> and store them under `PeekingDuckReborn/peekingduck_weights/`.
+
+```
+peekingduck_weights/
+└───rt_detr/
+        └───pytorch/
+                └───rtdetr_r18vd/
+                        ├───config.json
+                        ├───model.safetensors
+                        └───preprocessor_config.json
+...
+```
+
+
 ## Currently Available Nodes
-The currently available nodes are listed here. `(pkd)` indicates a node implemented in the original version of PeekingDuck.
+The currently available nodes are listed here. `(pkd)` indicates a node inherited from the original version of PeekingDuck. For the usage options, please refer to the YAML configuration files in `peekingduck/configs/`.
+
 ### `input` nodes
 * `visual (pkd)`
 ### `augment` nodes
