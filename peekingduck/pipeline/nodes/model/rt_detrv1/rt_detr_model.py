@@ -20,6 +20,7 @@ rtdetr_r101vd_coco_o365."""
 import logging
 from typing import Any, Dict, List, Tuple
 
+from pathlib import Path
 import numpy as np
 
 from peekingduck.pipeline.nodes.base import (
@@ -27,6 +28,9 @@ from peekingduck.pipeline.nodes.base import (
     WeightsDownloaderMixin,
 )
 from peekingduck.pipeline.nodes.model.rt_detrv1.rt_detr_files.detector import Detector
+
+
+HF_REPO = "PekingU"
 
 
 class RTDETRModel(ThresholdCheckerMixin, WeightsDownloaderMixin):
@@ -53,16 +57,22 @@ class RTDETRModel(ThresholdCheckerMixin, WeightsDownloaderMixin):
 
         use_hf = self.config.get("huggingface", True)
         if use_hf is True:
-            model_dir = self.config.get("huggingface_model_dir", "PekingU")
+            # Download weights from HuggingFace.
+            model_dir = Path(self.config.get("huggingface_model_dir", HF_REPO))
+            # Account for windows backslash.
+            model_path = str(model_dir / self.config["model_type"]).replace("\\", "/")
         else:
-            model_dir = self._find_paths()
+            # Load weights from a local directory.
+            model_dir = Path(self._find_paths())
+            # TODO
+            # Account for windows backslash. This needs to be fixed.
+            model_path = str(model_dir / self.config["model_type"]).replace("\\", "/")
 
         self.detect_ids = self.config["detect"]
 
         self.detector = Detector(
-            model_dir,
+            model_path,
             self.detect_ids,
-            self.config["model_type"],
             self.config["input_size"],
             self.config["score_threshold"],
         )

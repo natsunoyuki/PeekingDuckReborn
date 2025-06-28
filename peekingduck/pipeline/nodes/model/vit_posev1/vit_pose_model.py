@@ -16,6 +16,7 @@
 import logging
 from typing import Any, Dict, List, Tuple
 
+from pathlib import Path
 import numpy as np
 
 from peekingduck.pipeline.nodes.base import (
@@ -47,14 +48,18 @@ class VITPoseModel(ThresholdCheckerMixin, WeightsDownloaderMixin):
 
         use_hf = self.config.get("huggingface", True)
         if use_hf is True:
-            model_dir = self.config.get("huggingface_model_dir", HF_REPO)
+            # Download weights from HuggingFace.
+            model_dir = Path(self.config.get("huggingface_model_dir", HF_REPO))
+            model_path = str(model_dir / self.config["model_type"]).replace("\\", "/")
         else:
-            model_dir = self._find_paths()
-
+            # Load weights from a local directory.
+            model_dir = Path(self._find_paths())
+            # TODO
+            # Account for windows backslash. This needs to be fixed.
+            model_path = model_dir / self.config["model_type"]
 
         self.detector = Detector(
-            model_dir,
-            self.config["model_type"],
+            model_path,
             self.config["resolution"],
             self.config["keypoint_score_threshold"],
         )

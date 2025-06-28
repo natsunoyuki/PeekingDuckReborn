@@ -41,20 +41,17 @@ class Detector:  # pylint: disable=too-many-instance-attributes
     """
     def __init__(  # pylint: disable=too-many-arguments
         self,
-        model_dir: Union[Path, str],
+        model_path: Union[Path, str],
         detect_ids: List[int],
-        model_type: str="rtdetr_r18vd",
         input_size: int=640,
         score_threshold: float=0.5,
     ) -> None:
         self.logger = logging.getLogger(__name__)
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        
-        self.detect_ids = detect_ids
 
-        self.model_dir = Path(model_dir)
-        self.model_type = model_type
-        self.model_path = str(self.model_dir / model_type)
+        self.model_path = model_path
+
+        self.detect_ids = detect_ids
 
         self.input_size = (input_size, input_size)
         self.score_threshold = score_threshold
@@ -152,7 +149,7 @@ class Detector:  # pylint: disable=too-many-instance-attributes
     def log(self):
         self.logger.info(
             "RE-DETR model loaded with the following configs:\n\t"
-            f"Model type: {self.model_type}\n\t"
+            f"Model path: {self.model_path}\n\t"
             f"Input resolution: {self.input_size}\n\t"
             f"IDs being detected: {self.detect_ids}\n\t"
             f"Score threshold: {self.score_threshold}\n\t"
