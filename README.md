@@ -122,7 +122,7 @@ Run the pipeline with a specified configuration `.yml` file.
 peekingduck run --config_path <path-to-config-yml-file>
 ```
 
-### Local Weights Subdirectory
+## Local Weights Subdirectory
 The original PeekingDuck model weights will be downloaded from https://storage.googleapis.com/peekingduck/models to a local subdirectory, which is set to `peekingduck_weights/` by default in PeekingDuckReborn. The name and location of `peekingduck_weights/` can be specified through local environment variables specified using a `.env` file.
 
 For normal installations, the original PeekingDuck model weights will be downloaded to `PeekingDuckReborn/venv/Lib/site-packages/peekingduck_weights/`, and when installed in developer mode, they will be downloaded to `PeekingDuckReborn/peekingduck_weights/` by default if no local environment variables are set. Torchvision and HuggingFace model weights will be downloaded to the local cache directory. 
@@ -146,7 +146,6 @@ peekingduck_weights/
         └───tensorflow/
                 ├─── model_type_1/
                 └─── model_type_2/
-...
 ```
 where `model_name` corresponds to the node name, e.g. `yolox`, while `model_type` corresponds to `model_type` in the corresponding node, e.g. `yolox-s`. While most of the models have pytorch weights, some models have tensorflow weights. We follow the original convention set in PeekingDuck and separate the weights according to whether they are written in pytorch or tensorflow.
 
@@ -160,7 +159,6 @@ peekingduck_weights/
                         ├───config.json
                         ├───model.safetensors
                         └───preprocessor_config.json
-...
 ```
 
 
