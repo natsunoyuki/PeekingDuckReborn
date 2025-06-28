@@ -68,6 +68,15 @@ cd PeekingDuckReborn
 pip install -e .
 ```
 
+### Windows with CUDA
+Before installing PeekingDuckReborn, install torch with CUDA first following the <a href="https://pytorch.org/get-started/locally/">official PyTorch instructions</a>. If not, torch will only be able to access the CPU. Tensorflow 2.11 and newer do not support CUDA on Windows.
+```bash
+# Install torch with CUDA first.
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cu126
+# Then install PeekingDuckReborn.
+pip install -e .
+```
+
 ### Install Options
 The following install options are available.
 ```bash
@@ -113,8 +122,19 @@ Run the pipeline with a specified configuration `.yml` file.
 peekingduck run --config_path <path-to-config-yml-file>
 ```
 
-### Local Weights Directory
-In developer mode, the original PeekingDuck model weights will be downloaded to `PeekingDuckReborn/peekingduck_weights/`. Torchvision and HuggingFace model weights will be downloaded to the local cache directory. In general, `peekingduck_weights/` will have the following directory structure:
+### Local Model Weights Directory
+The original PeekingDuck model weights will be downloaded from https://storage.googleapis.com/peekingduck/models to a local subdirectory, which is set to `peekingduck_weights/` by default in PeekingDuckReborn. The name of `peekingduck_weights/` will depend if local environment variables are specified using a `.env` file.
+
+For normal installations, the original PeekingDuck model weights will be downloaded to `PeekingDuckReborn/venv/Lib/site-packages/peekingduck_weights/`, and when installed in developer mode, they will be downloaded to `PeekingDuckReborn/peekingduck_weights/` by default if no local environment variables are set. Torchvision and HuggingFace model weights will be downloaded to the local cache directory. 
+
+#### Specifying Local Environment Variables with a `.env` File.
+Create a `.env` file under `PeekingDuckReborn/` with the following contents to specify another subdirectory name instead of `peekingduck_weights/`.
+```
+PEEKINGDUCK_WEIGHTS_SUBDIR=<subdirectory name>
+```
+
+#### `peekingduck_weights/` Structure
+In general, `peekingduck_weights/` will have the following structure:
 ```
 peekingduck_weights/
 └───model_name_1/
@@ -127,7 +147,6 @@ peekingduck_weights/
 ...
 ```
 where `model_name` corresponds to the node name, e.g. `yolox`, while `model_type` corresponds to `model_type` in the corresponding node, e.g. `yolox-s`. While most of the models have pytorch weights, some models have tensorflow weights. We follow the original convention set in PeekingDuck and separate the weights according to whether they are written in pytorch or tensorflow.
-
 
 HuggingFace and Torchvision weights can also be manually placed under `peekingduck_weights/`. For example, for the `rt_detr` model, we can manually download the <a href="https://huggingface.co/PekingU/rtdetr_r18vd/tree/main">`rtdetr_r18vd/` weights from HuggingFace</a> and store them under `PeekingDuckReborn/peekingduck_weights/`.
 
@@ -144,7 +163,7 @@ peekingduck_weights/
 
 
 ## Currently Available Nodes
-The currently available nodes are listed here. `(pkd)` indicates a node inherited from the original version of PeekingDuck. For the usage options, please refer to the YAML configuration files in `peekingduck/configs/`.
+The currently available nodes are listed here. Nodes include both original PeekingDuck nodes, and PeekingDuckReborn nodes. `(pkd)` indicates a node inherited from the original version of PeekingDuck. For the usage options, please refer to the YAML configuration files in `peekingduck/configs/`. More detailed documentation is a work-in-progress.
 
 ### `input` nodes
 * `visual (pkd)`
@@ -156,12 +175,12 @@ The currently available nodes are listed here. `(pkd)` indicates a node inherite
 * `csrnet (pkd)`
 * `efficientdet (pkd)`
 * `fairmot (pkd)`
-* `hrnet (pkd)` - Buggy implementation, should not be used.
+* `hrnet (pkd)` - Buggy original PKD implementation. Should not be used.
 * `jde (pkd)`
 * `mask_rcnn (pkd)`
-* `movenet (pkd)` - Buggy implementation, should not be used.
+* `movenet (pkd)` - Buggy original PKD implementation. Should not be used.
 * `mtcnn (pkd)`
-* `posenet (pkd)` - Buggy implementation, should not be used.
+* `posenet (pkd)` - Buggy original PKD implementation. Should not be used.
 * `rt-detr`
 * `vit_pose`
 * `yolact_edge (pkd)`
@@ -200,7 +219,8 @@ The currently available nodes are listed here. `(pkd)` indicates a node inherite
 * `media_writer (pkd)`
 * `screen (pkd)`
 
-## Things to Note
+
+## Important Things to Note
 ### Images Are Numpy Arrays with BGR Channels
 In the pipeline, images are `numpy` arrays with shape `[H, W, C]`, where `C` corresponds to Blue-Green-Red channels following OpenCV convention. Please keep this in mind when implementing new nodes or tests.
 
