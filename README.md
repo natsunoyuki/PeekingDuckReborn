@@ -122,16 +122,18 @@ Run the pipeline with a specified configuration `.yml` file.
 peekingduck run --config_path <path-to-config-yml-file>
 ```
 
-### Local Model Weights Directory
-The original PeekingDuck model weights will be downloaded from https://storage.googleapis.com/peekingduck/models to a local subdirectory, which is set to `peekingduck_weights/` by default in PeekingDuckReborn. The name of `peekingduck_weights/` will depend if local environment variables are specified using a `.env` file.
+### Local Weights Subdirectory
+The original PeekingDuck model weights will be downloaded from https://storage.googleapis.com/peekingduck/models to a local subdirectory, which is set to `peekingduck_weights/` by default in PeekingDuckReborn. The name and location of `peekingduck_weights/` can be specified through local environment variables specified using a `.env` file.
 
 For normal installations, the original PeekingDuck model weights will be downloaded to `PeekingDuckReborn/venv/Lib/site-packages/peekingduck_weights/`, and when installed in developer mode, they will be downloaded to `PeekingDuckReborn/peekingduck_weights/` by default if no local environment variables are set. Torchvision and HuggingFace model weights will be downloaded to the local cache directory. 
 
 #### Specifying Local Environment Variables with a `.env` File.
-Create a `.env` file under `PeekingDuckReborn/` with the following contents to specify another subdirectory name instead of `peekingduck_weights/`.
+Create a `.env` file under `PeekingDuckReborn/` to specify the path to `PeekingDuckReborn`, or another subdirectory name instead of `peekingduck_weights/`.
 ```
-PEEKINGDUCK_WEIGHTS_SUBDIR=<subdirectory name>
+PEEKINGDUCK_DIR=<path to PeekingDuckReborn>
+PEEKINGDUCK_WEIGHTS_SUBDIR=<weights subdirectory name>
 ```
+For developer mode, `PEEKINGDUCK_DIR` only needs to be specified if you want `peekingduck_weights/` to be located somewhere else from `PeekingDuckReborn/`. For normal installations, `PEEKINGDUCK_DIR` can be used to specify a more convenient location for `peekingduck_weights/`.
 
 #### `peekingduck_weights/` Structure
 In general, `peekingduck_weights/` will have the following structure:
