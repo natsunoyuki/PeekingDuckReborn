@@ -45,14 +45,18 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-BASE_URL = os.getenv(
-    "BASE_URL",
-    "https://storage.googleapis.com/peekingduck/models",
+# Load local environment variables specified in `PeekingDuckReborn/.env``.
+# 1. Path of `PeekingDuckReborn/`. 
+WEIGHTS_PARENT_DIR = os.getenv(
+    "PEEKINGDUCK_DIR", None
 )
-
+# 2. URL to download the original PKD model weights from.
+BASE_URL = os.getenv(
+    "BASE_URL", "https://storage.googleapis.com/peekingduck/models"
+)
+# 3. Name of the subdir `peekingduck_weights` to contain the downloaded weights.
 PEEKINGDUCK_WEIGHTS_SUBDIR = os.getenv(
-    "PEEKINGDUCK_WEIGHTS_SUBDIR",
-    "peekingduck_weights",
+    "PEEKINGDUCK_WEIGHTS_SUBDIR", "peekingduck_weights"
 )
 
 
@@ -60,7 +64,6 @@ class ThresholdCheckerMixin:
     """Mixin class providing utility methods for checking validity of config
     values, typically thresholds.
     """
-
     interval_pattern = re.compile(
         r"^[\[\(]\s*[-+]?(inf|\d*\.?\d+)\s*,\s*[-+]?(inf|\d*\.?\d+)\s*[\]\)]$"
     )
@@ -219,7 +222,6 @@ class ThresholdCheckerMixin:
 
 class WeightsDownloaderMixin:
     """Mixin class providing utility methods for downloading model weights."""
-
     @property
     def blob_filename(self) -> str:
         """Name of the selected weights on GCP."""
@@ -319,7 +321,10 @@ class WeightsDownloaderMixin:
                 absolute path.
         """
         if self.config["weights_parent_dir"] is None:
-            weights_parent_dir = self.config["root"].parent
+            if WEIGHTS_PARENT_DIR is not None:
+                weights_parent_dir = Path(WEIGHTS_PARENT_DIR)
+            else:
+                weights_parent_dir = self.config["root"].parent
         else:
             weights_parent_dir = Path(self.config["weights_parent_dir"])
 
