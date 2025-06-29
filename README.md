@@ -184,7 +184,7 @@ The currently available nodes are listed here. Nodes include both original Peeki
 * `posenet (pkd)` - Buggy original PKD implementation. Should not be used.
 * `rt-detr`
 * `vit_pose`
-* `yolact_edge (pkd)`
+* `yolact_edge (pkd)` - Buggy original PKD implementation. Should not be used.
 * `yolo_face (pkd)`
 * `yolo_license_plate (pkd)`
 * `yolo (pkd)`
