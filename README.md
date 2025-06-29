@@ -26,10 +26,11 @@ The links above lead to the original PeekingDuck documentation. The documentatio
 ## To Do
 - [X] Full compatibility with Python3.12+.
 - [X] Update dependencies.
+- [X] Fix issue regarding the local weights subdirectory and parent directory with `dotenv`.
 - [X] Replace `pkg_resources` with `importlib.metadata`.
 - [X] Added BoT-SORT bounding box tracker (without reID) dabble node.
 - [X] Added RT-DETR object detector model node.
-- [X] Implement advanced pose estimation models (VITPose) in the models node.
+- [X] Implement VITPose pose keypoint detection model node.
 - [ ] Modernize tests (WIP).
 - [ ] Fix issues involving TensorFlow on Windows.
 - [ ] Remove/deprecate PeekingDuck Mosse tracker.
@@ -37,7 +38,6 @@ The links above lead to the original PeekingDuck documentation. The documentatio
 - [ ] Implement re-ID for BoT-SORT tracker dabble node. 
 - [ ] Implement multi-GPU support.
 - [ ] Implement ONNX deployment for all models in the models node.
-- [ ] Implement norfair-sort object tracker.
 - [ ] Updated documentation on the internet to replace [the original](https://peekingduck.readthedocs.io/en/stable/index.html#what-is-peekingduck).
 - [ ] Updated model weights repository on the internet to replace [the original](https://storage.googleapis.com/peekingduck/models)
 
