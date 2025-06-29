@@ -75,10 +75,10 @@ def yolact_edge_type(request, yolact_edge_config):
 
 
 @pytest.mark.mlmodel
-# TODO: fix this test for Windows.
-# This test passes on Ubuntu and MacOS, but fails on Windows
-# due to issues with TensorFlow.
-@pytest.mark.skipif(platform.system()=="Windows", reason="This test consistently fails on Windows.")
+# TODO: fix this test.
+# This test fails on Windows with the following error:
+# ERROR:  RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu!
+@pytest.mark.skipif(platform.system()=="Windows", reason="This test consistently fails with a GPU.")
 class TestYolactEdge:
     def test_no_human_image(self, no_human_image, yolact_edge_type):
         no_human_img = cv2.imread(no_human_image)
