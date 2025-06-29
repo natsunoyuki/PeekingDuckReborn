@@ -231,7 +231,8 @@ The original PeekingDuck pose estimation models `hrnet`, `movenet` and `posenet`
 
 ## Known Issues
 1. The original pose estimation models (`hrnet`, `movenet`, `posenet`) will crash when more than one person exists in the frame.
-2. Models implemented in TensorFlow (`yolact_edge`, `yolo`, `yolo_face`, `yolo_license_plate`) might be buggy and not work properly.
+2. Models implemented in TensorFlow (`yolo`, `yolo_face`, `yolo_license_plate`) might be buggy and not work properly.
+3. `yolact_edge` implementation has issues with CUDA on Windows, resulting in the following error `ERROR:  RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu!`.
 
 
 ## Acknowledgements
