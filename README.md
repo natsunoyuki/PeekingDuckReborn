@@ -31,6 +31,7 @@ The links above lead to the original PeekingDuck documentation. The documentatio
 - [X] Added RT-DETR object detector model node.
 - [X] Implement advanced pose estimation models (VITPose) in the models node.
 - [ ] Modernize tests (WIP).
+- [ ] Fix issues involving TensorFlow on Windows.
 - [ ] Remove/deprecate PeekingDuck Mosse tracker.
 - [ ] Remove/deprecate PeekingDuck pose estimation models. 
 - [ ] Implement re-ID for BoT-SORT tracker dabble node. 
@@ -226,6 +227,11 @@ In the pipeline, images are `numpy` arrays with shape `[H, W, C]`, where `C` cor
 
 ### Buggy Original Pose Estimation Models
 The original PeekingDuck pose estimation models `hrnet`, `movenet` and `posenet` are extremely buggy and should not be used.
+
+
+## Known Issues
+1. The original pose estimation models (`hrnet`, `movenet`, `posenet`) will crash when more than one person exists in the frame.
+2. Models implemented in TensorFlow (`yolact_edge`, `yolo`, `yolo_face`, `yolo_license_plate`) might be buggy and not work properly.
 
 
 ## Acknowledgements

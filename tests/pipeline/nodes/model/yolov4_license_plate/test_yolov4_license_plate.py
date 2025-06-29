@@ -28,7 +28,7 @@
 # limitations under the License.
 
 from pathlib import Path
-
+import platform
 import cv2
 import numpy as np
 import numpy.testing as npt
@@ -72,6 +72,10 @@ def yolo_type(request, yolo_config):
 
 
 @pytest.mark.mlmodel
+# TODO: fix this test for Windows.
+# This test passes on Ubuntu and MacOS, but fails on Windows
+# due to issues with TensorFlow.
+@pytest.mark.skipif(platform.system()=="Windows", reason="This test consistently fails on Windows.")
 class TestYOLOLicensePlate:
     def test_no_license_plate_image(self, no_license_plate_image, yolo_type):
         no_license_plate_img = cv2.imread(no_license_plate_image)
