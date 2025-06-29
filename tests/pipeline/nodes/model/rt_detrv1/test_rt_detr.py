@@ -34,6 +34,7 @@ GT_RESULTS = get_groundtruth(Path(__file__).resolve())
 def rt_detr_config():
     with open(PKD_DIR / "configs" / "model" / "rt_detr.yml") as infile:
         node_config = yaml.safe_load(infile)
+    node_config["model_type"] = "rtdetr_r18vd"
     node_config["root"] = Path.cwd()
     # The following prevents pytest from creating `peekingduck_weights/`
     # in the parent directory of `PeekingDuckReborn/`.
@@ -51,10 +52,12 @@ def rt_detr_bad_config_value(request, rt_detr_config):
     rt_detr_config[request.param["key"]] = request.param["value"]
     return rt_detr_config
 
-# TODO add the other larger RT-DETR models.
+
+# TODO add the other larger RT-DETR models such as "rtdetr_r34vd", "rtdetr_r50vd".
 @pytest.fixture(params=["rtdetr_r18vd"])
 def rt_detr_config_cpu(request, rt_detr_config):
     rt_detr_config["model_type"] = request.param
+    # Mock CUDA is not available.
     with mock.patch("torch.cuda.is_available", return_value=False):
         yield rt_detr_config
 
@@ -75,6 +78,7 @@ class TestRTDETR:
         npt.assert_equal(output["bbox_labels"], expected_output["bbox_labels"])
         npt.assert_equal(output["bbox_scores"], expected_output["bbox_scores"])
     
+
     def test_detect_human_bboxes(self, human_image, rt_detr_config_cpu):
         human_img = cv2.imread(human_image)
         node = Node(rt_detr_config_cpu)
@@ -91,7 +95,7 @@ class TestRTDETR:
         npt.assert_equal(output["bbox_labels"], expected["bbox_labels"])
         npt.assert_allclose(output["bbox_scores"], expected["bbox_scores"], atol=1e-2)
 
-    # TODO
+
     @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires GPU")
     def test_detect_human_bboxes_gpu(self, human_image, rt_detr_config):
         human_img = cv2.imread(human_image)
@@ -109,19 +113,23 @@ class TestRTDETR:
         npt.assert_equal(output["bbox_labels"], expected["bbox_labels"])
         npt.assert_allclose(output["bbox_scores"], expected["bbox_scores"], atol=1e-2)
 
+
     def test_get_detect_ids(self, rt_detr_config):
         node = Node(rt_detr_config)
         assert node.model.detect_ids == [0]
+
 
     def test_invalid_config_detect_ids(self, rt_detr_config):
         rt_detr_config["detect"] = 1
         with pytest.raises(TypeCheckError):
             _ = Node(config=rt_detr_config)
 
+
     def test_invalid_config_value(self, rt_detr_bad_config_value):
         with pytest.raises(ValueError) as excinfo:
             _ = Node(config=rt_detr_bad_config_value)
         assert "score_threshold must be between [0.0, 1.0]" in str(excinfo.value)
+
 
     def test_invalid_image(self, no_human_image, rt_detr_config):
         no_human_img = cv2.imread(no_human_image)
