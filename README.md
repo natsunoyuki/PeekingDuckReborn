@@ -173,22 +173,29 @@ The currently available nodes are listed here. Nodes include both original Peeki
 * `contrast (pkd)`
 * `undistort (pkd)`
 ### `model` nodes
+#### Crowd Density Heatmap Estimation Models
 * `csrnet (pkd)`
+#### Object Detection Models
 * `efficientdet (pkd)`
-* `fairmot (pkd)`
-* `hrnet (pkd)` - Buggy original PKD implementation. Should not be used.
-* `jde (pkd)`
-* `mask_rcnn (pkd)`
-* `movenet (pkd)` - Buggy original PKD implementation. Should not be used.
-* `mtcnn (pkd)`
-* `posenet (pkd)` - Buggy original PKD implementation. Should not be used.
 * `rt-detr`
-* `vit_pose`
-* `yolact_edge (pkd)` - Buggy original PKD implementation. Should not be used.
-* `yolo_face (pkd)`
-* `yolo_license_plate (pkd)`
 * `yolo (pkd)`
 * `yolox (pkd)`
+#### Person Detection and Tracking Models
+* `fairmot (pkd)`
+* `jde (pkd)`
+#### Human Pose Estimation Models
+* `hrnet (pkd)` - Buggy original PKD implementation.
+* `movenet (pkd)` - Buggy original PKD implementation.
+* `posenet (pkd)` - Buggy original PKD implementation.
+* `vit_pose`
+#### Human Face Detection Models
+* `mtcnn (pkd)`
+* `yolo_face (pkd)`
+#### Instance Segmentation Models
+* `mask_rcnn (pkd)`
+* `yolact_edge (pkd)` - Buggy original PKD implementation.
+#### Vehicle License Plate Detection Models
+* `yolo_license_plate (pkd)`
 ### `dabble` nodes
 * `bbox_count (pkd)`
 * `bbox_to_3d_loc (pkd)`
