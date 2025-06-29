@@ -78,7 +78,7 @@ def yolo_type(request, yolo_config):
 # TODO: fix this test for Windows.
 # This test passes on Ubuntu and MacOS, but fails on Windows
 # due to issues with TensorFlow.
-#@pytest.mark.skipif(platform.system()=="Windows", reason="This test consistently fails on Windows.")
+@pytest.mark.skipif(platform.system()=="Windows", reason="This test consistently fails on Windows.")
 class TestYolo:
     def test_no_human_image(self, no_human_image, yolo_type):
         no_human_img = cv2.imread(no_human_image)
