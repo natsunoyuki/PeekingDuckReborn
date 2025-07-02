@@ -242,6 +242,11 @@ The original PeekingDuck pose estimation models `hrnet`, `movenet` and `posenet`
 3. `yolact_edge` implementation has issues with CUDA on Windows, resulting in the following error `ERROR:  RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu!`.
 
 
+## License
+Natsunoyuki AI Lab currently offers the following licensing options for PeekingDuckReborn:
+1. GPL-3.0 License: Designed for knowledge sharing and open collaboration. Please read the `LICENSE.txt` file for details.
+
+
 ## Acknowledgements
 PeekingDuckReborn is an independent derivative of [PeekingDuck](https://github.com/aisingapore/PeekingDuck), which was supported by the National Research Foundation, Singapore under its AI Singapore Programme. 
 
