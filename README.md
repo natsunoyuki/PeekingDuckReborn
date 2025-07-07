@@ -141,12 +141,12 @@ In general, `peekingduck_weights/` will have the following structure:
 ```
 peekingduck_weights/
 └───model_name_1/
-        ├───pytorch/
-        |       ├─── model_type_1/
-        |       └─── model_type_2/
-        └───tensorflow/
-                ├─── model_type_1/
-                └─── model_type_2/
+    ├───pytorch/
+    |   ├─── model_type_1/
+    |   └─── model_type_2/
+    └───tensorflow/
+        ├─── model_type_1/
+        └─── model_type_2/
 ```
 where `model_name` corresponds to the node name, e.g. `yolox`, while `model_type` corresponds to `model_type` in the corresponding node, e.g. `yolox-s`. While most of the models have pytorch weights, some models have tensorflow weights. We follow the original convention set in PeekingDuck and separate the weights according to whether they are written in pytorch or tensorflow.
 
@@ -155,11 +155,11 @@ HuggingFace and Torchvision weights can also be manually placed under `peekingdu
 ```
 peekingduck_weights/
 └───rt_detr/
-        └───pytorch/
-                └───rtdetr_r18vd/
-                        ├───config.json
-                        ├───model.safetensors
-                        └───preprocessor_config.json
+    └───pytorch/
+        └───rtdetr_r18vd/
+            ├───config.json
+            ├───model.safetensors
+            └───preprocessor_config.json
 ```
 
 
@@ -244,12 +244,8 @@ The original PeekingDuck pose estimation models `hrnet`, `movenet` and `posenet`
 
 ## License
 Natsunoyuki AI Lab currently offers the following licensing options for PeekingDuckReborn:
-1. GPL-3.0 License: Designed for knowledge sharing and open collaboration. Please read the `LICENSE.txt` file for details.
+1. GPL-3.0 License: Great for open source projects and knowledge sharing. Please read the `LICENSE.txt` file for details.
 
 
 ## Acknowledgements
-PeekingDuckReborn is an independent derivative of [PeekingDuck](https://github.com/aisingapore/PeekingDuck), which was supported by the National Research Foundation, Singapore under its AI Singapore Programme. 
-
-Any opinions, findings and conclusions or recommendations expressed in this material are those of the authors of PeekingDuckReborn and do not reflect the views of National Research Foundation, Singapore, or of AI Singapore, or of the original authors of [PeekingDuck](https://github.com/aisingapore/PeekingDuck).
-
-PeekingDuckReborn is neither supported nor funded by, nor affiliated with the National Research Foundation, Singapore, or AI Singapore, or the original authors of [PeekingDuck](https://github.com/aisingapore/PeekingDuck).
+PeekingDuckReborn is an independent modernized derivative of [PeekingDuck](https://github.com/aisingapore/PeekingDuck), a low-code computer vision inference platform originally supported by the National Research Foundation, Singapore under its AI Singapore Programme. Any opinions, findings and conclusions or recommendations expressed in this material are those of the authors of PeekingDuckReborn and do not reflect the views of National Research Foundation, Singapore, or of AI Singapore, or of the original authors of [PeekingDuck](https://github.com/aisingapore/PeekingDuck). PeekingDuckReborn is neither supported nor funded by, nor affiliated in any way with the National Research Foundation, Singapore, or AI Singapore, or the original authors of [PeekingDuck](https://github.com/aisingapore/PeekingDuck).
