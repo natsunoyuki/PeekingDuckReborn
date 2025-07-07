@@ -3,13 +3,13 @@
 <img src="https://raw.githubusercontent.com/natsunoyuki/PeekingDuckReborn/main/docs/source/assets/peekingduck_reborn_new.svg">
 
 ---
-### PeekingDuck Wiki Documentation
+### PeekingDuckReborn Wiki Documentation
 <h4 align="center">
   <a href="https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki">Wiki Home</a>
   <span> · </span>
   <a href="https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki/Installation">Installation</a>
   <span> · </span>
-  <a href="https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki/PeekingDuckReborn-Nodes">API</a>
+  <a href="https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki/PeekingDuckReborn-Nodes">PeekingDuckReborn API</a>
   <span> · </span>
   <a href="https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki/Inference-with-PeekingDuckReborn">Inference</a>
 </h4>
