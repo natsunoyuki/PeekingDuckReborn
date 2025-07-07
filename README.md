@@ -31,6 +31,7 @@ The links above lead to the original PeekingDuck documentation. The documentatio
 - [X] Added BoT-SORT bounding box tracker (without reID) dabble node.
 - [X] Added RT-DETR object detector model node.
 - [X] Implement VITPose pose keypoint detection model node.
+- [ ] Updated documentation on the internet to replace [the original](https://peekingduck.readthedocs.io/en/stable/index.html#what-is-peekingduck) (WIP).
 - [ ] Modernize tests (WIP).
 - [ ] Fix issues involving TensorFlow on Windows.
 - [ ] Remove/deprecate PeekingDuck Mosse tracker.
@@ -38,7 +39,6 @@ The links above lead to the original PeekingDuck documentation. The documentatio
 - [ ] Implement re-ID for BoT-SORT tracker dabble node. 
 - [ ] Implement multi-GPU support.
 - [ ] Implement ONNX deployment for all models in the models node.
-- [ ] Updated documentation on the internet to replace [the original](https://peekingduck.readthedocs.io/en/stable/index.html#what-is-peekingduck).
 - [ ] Updated model weights repository on the internet to replace [the original](https://storage.googleapis.com/peekingduck/models)
 
 ## Features
