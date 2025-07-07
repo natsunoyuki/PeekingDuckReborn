@@ -3,21 +3,17 @@
 <img src="https://raw.githubusercontent.com/natsunoyuki/PeekingDuckReborn/main/docs/source/assets/peekingduck_reborn_new.svg">
 
 ---
-### Original Documentation
+### PeekingDuck Wiki Documentation
 <h4 align="center">
-  <a href="https://peekingduck.readthedocs.io/en/stable/getting_started/index.html">Getting started</a>
+  <a href="https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki">Wiki Home</a>
   <span> · </span>
-  <a href="https://peekingduck.readthedocs.io/en/stable/tutorials/index.html">Tutorials</a>
+  <a href="https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki/Installation">Installation</a>
   <span> · </span>
-  <a href="https://peekingduck.readthedocs.io/en/stable/master.html#api-documentation">API docs</a>
+  <a href="https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki/PeekingDuckReborn-Nodes">API</a>
   <span> · </span>
-  <a href="https://peekingduck.readthedocs.io/en/stable/faq.html">FAQ</a>
-  <span> · </span>
-  <a href="https://github.com/natsunoyuki/PeekingDuckReborn/issues">Report a bug</a>
-  <span> · </span>
-  <a href="#communities">Communities</a>
+  <a href="https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki/Inference-with-PeekingDuckReborn">Inference</a>
 </h4>
-The links above lead to the original PeekingDuck documentation. The documentation for PeekingDuckReborn is currently a work-in-progress.
+
 
 ---
 
@@ -164,68 +160,7 @@ peekingduck_weights/
 
 
 ## Currently Available Nodes
-The currently available nodes are listed here. Nodes include both original PeekingDuck nodes, and PeekingDuckReborn nodes. `(pkd)` indicates a node inherited from the original version of PeekingDuck. For the usage options, please refer to the YAML configuration files in `peekingduck/configs/`. More detailed documentation is a work-in-progress.
-
-### `input` nodes
-* `visual (pkd)`
-### `augment` nodes
-* `brightness (pkd)`
-* `contrast (pkd)`
-* `undistort (pkd)`
-### `model` nodes
-#### Crowd Density Heatmap Estimation Models
-* `csrnet (pkd)`
-#### Object Detection Models
-* `efficientdet (pkd)`
-* `rt-detr`
-* `yolo (pkd)`
-* `yolox (pkd)`
-#### Person Detection and Tracking Models
-* `fairmot (pkd)`
-* `jde (pkd)`
-#### Human Pose Estimation Models
-* `hrnet (pkd)` - Buggy original PKD implementation.
-* `movenet (pkd)` - Buggy original PKD implementation.
-* `posenet (pkd)` - Buggy original PKD implementation.
-* `vit_pose`
-#### Human Face Detection Models
-* `mtcnn (pkd)`
-* `yolo_face (pkd)`
-#### Instance Segmentation Models
-* `mask_rcnn (pkd)`
-* `yolact_edge (pkd)` - Buggy original PKD implementation.
-#### Vehicle License Plate Detection Models
-* `yolo_license_plate (pkd)`
-### `dabble` nodes
-* `bbox_count (pkd)`
-* `bbox_to_3d_loc (pkd)`
-* `bbox_to_btm_midpoint (pkd)`
-* `bot_sort`
-* `camera_calibration (pkd)`
-* `check_large_groups (pkd)`
-* `check_nearby_objs (pkd)`
-* `fps (pkd)`
-* `group_nearby_objs (pkd)`
-* `keypoints_to_3d_loc (pkd)`
-* `statistics (pkd)`
-* `tracking (pkd)`
-* `zone_count (pkd)`
-### `draw` nodes
-* `bbox (pkd)`
-* `blur_bbox (pkd)`
-* `btm_midpoint (pkd)`
-* `group_bbox_and_tag (pkd)`
-* `heat_map (pkd)`
-* `instance_mask (pkd)`
-* `legend (pkd)`
-* `mosaic_bbox (pkd)`
-* `poses (pkd)`
-* `tag (pkd)`
-* `zones (pkd)`
-### `output` nodes
-* `csv_writer (pkd)`
-* `media_writer (pkd)`
-* `screen (pkd)`
+Please refer to the <a href="https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki/PeekingDuckReborn-Nodes">PeekingDuckReborn wiki</a> for more information on the nodes currently available.
 
 
 ## Important Things to Note
