@@ -27,7 +27,7 @@
 - [X] Added BoT-SORT bounding box tracker (without reID) dabble node.
 - [X] Added RT-DETR object detector model node.
 - [X] Implement VITPose pose keypoint detection model node.
-- [ ] Updated documentation on the internet to replace [the original](https://peekingduck.readthedocs.io/en/stable/index.html#what-is-peekingduck) (WIP).
+- [X] [PeekingDuckReborn wiki](https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki) documentation to replace [the original](https://peekingduck.readthedocs.io/en/stable/index.html#what-is-peekingduck).
 - [ ] Modernize tests (WIP).
 - [ ] Fix issues involving TensorFlow on Windows.
 - [ ] Remove/deprecate PeekingDuck Mosse tracker.
