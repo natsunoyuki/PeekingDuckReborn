@@ -189,4 +189,8 @@ See [NOTICE](./NOTICE.txt) for details.
 
 
 ## Acknowledgements
-PeekingDuckReborn is an independent modernized derivative of [PeekingDuck](https://github.com/aisingapore/PeekingDuck), a low-code computer vision inference platform originally supported by the National Research Foundation, Singapore under its AI Singapore Programme. Any opinions, findings and conclusions or recommendations expressed in this material are those of the authors of PeekingDuckReborn and do not reflect the views of National Research Foundation, Singapore, or of AI Singapore, or of the original authors of [PeekingDuck](https://github.com/aisingapore/PeekingDuck). PeekingDuckReborn is neither supported nor funded by, nor affiliated in any way with the National Research Foundation, Singapore, or AI Singapore, or the original authors of [PeekingDuck](https://github.com/aisingapore/PeekingDuck).
+PeekingDuckReborn is an independently maintained and significantly modernized fork of [PeekingDuck](https://github.com/aisingapore/PeekingDuck), originally developed by AI Singapore. The original project has not been updated in several years and no longer works with current dependencies. This fork fixes bugs, adds new features, and updates the entire pipeline to work with modern Python versions, computer vision libraries, and deployment environments.
+
+Any opinions, findings, conclusions, or recommendations expressed in this project are solely those of the authors of PeekingDuckReborn and do not reflect the views of AI Singapore or the original authors of [PeekingDuck](https://github.com/aisingapore/PeekingDuck).
+
+PeekingDuckReborn is neither supported, funded by, nor affiliated with AI Singapore or the original authors of [PeekingDuck](https://github.com/aisingapore/PeekingDuck).
