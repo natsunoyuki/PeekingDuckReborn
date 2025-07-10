@@ -1,3 +1,19 @@
+PeekingDuckReborn
+
+This project is a fork of PeekingDuck (https://github.com/aisingapore/PeekingDuck), 
+originally developed by AI Singapore and licensed under the Apache License 2.0.
+
+PeekingDuckReborn contains modifications and original contributions made in 2025 
+by Natsunoyuki AI Laboratory.
+
+All code in this repository is distributed under the GNU General Public License 
+v3.0 (GPL-3.0), except where otherwise noted.
+
+See NOTICE for attribution details, and the LICENSE.Apache-2.0 file for the 
+original Apache license.
+
+---
+
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
 
