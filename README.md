@@ -178,8 +178,14 @@ The original PeekingDuck pose estimation models `hrnet`, `movenet` and `posenet`
 
 
 ## License
-Natsunoyuki AI Lab currently offers the following licensing options for PeekingDuckReborn:
-1. GPL-3.0 License: Great for open source projects and knowledge sharing. Please read the `LICENSE.txt` file for details.
+This project is a fork of [PeekingDuck](https://github.com/aisingapore/PeekingDuck), originally licensed under the Apache License 2.0.
+
+PeekingDuckReborn contains substantial modifications and new code, and is distributed under the GNU General Public License v3.0 (GPL-3.0).
+
+- Original code: Apache License 2.0 (see [LICENSE.Apache-2.0](./LICENSE.Apache-2.0.txt))
+- This fork: GPL-3.0 (see [LICENSE](./LICENSE.txt))
+
+See [NOTICE](./NOTICE.txt) for details.
 
 
 ## Acknowledgements

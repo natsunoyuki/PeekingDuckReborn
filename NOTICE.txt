@@ -1,0 +1,15 @@
+This project includes code from PeekingDuck, 
+originally developed by AI Singapore and licensed 
+under the Apache License, Version 2.0.
+
+- Repository: https://github.com/aisingapore/PeekingDuck
+- Original Copyright: © 2022 CVHub AI Singapore
+
+Modifications and new components added in 2025 by 
+Natsunoyuki AI Laboratory.
+
+This fork is licensed under the GNU General Public 
+License v3.0 (GPL-3.0).
+
+See LICENSE and LICENSE.Apache-2.0 for full license 
+terms.
