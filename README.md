@@ -5,13 +5,13 @@
 ---
 ### PeekingDuckReborn Wiki Documentation
 <h4 align="center">
-  <a href="https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki">Wiki Home</a>
+  <a href="https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki">PeekingDuckReborn Wiki</a>
   <span> · </span>
   <a href="https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki/Installation">Installation</a>
   <span> · </span>
   <a href="https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki/PeekingDuckReborn-Nodes">PeekingDuckReborn API</a>
   <span> · </span>
-  <a href="https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki/Inference-with-PeekingDuckReborn">Inference</a>
+  <a href="https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki/Inference-with-PeekingDuckReborn">Inference with PeekingDuckReborn</a>
 </h4>
 
 
@@ -39,13 +39,10 @@
 
 ## Features
 ### Build realtime computer vision pipelines
-* PeekingDuck enables you to build powerful computer vision pipelines with minimal lines of code.
+* Use PeekingDuckReborn to develop custom computer vision pipelines with minimal lines of code.
 
 ### Leverage on SOTA models
-* PeekingDuck comes with various [object detection](https://peekingduck.readthedocs.io/en/stable/resources/01a_object_detection.html), [pose estimation](https://peekingduck.readthedocs.io/en/stable/resources/01b_pose_estimation.html), [object tracking](https://peekingduck.readthedocs.io/en/stable/resources/01c_object_tracking.html), and [crowd counting](https://peekingduck.readthedocs.io/en/stable/resources/01d_crowd_counting.html) models. Mix and match different nodes to construct solutions for various [use cases](https://peekingduck.readthedocs.io/en/stable/use_cases/index.html).
-
-### Create custom nodes
-* You can create [custom nodes](https://peekingduck.readthedocs.io/en/stable/tutorials/02_duck_confit.html#custom-nodes) to meet your own project's requirements. PeekingDuck can also be [imported as a library](https://peekingduck.readthedocs.io/en/stable/tutorials/05_calling_peekingduck_in_python.html) to fit into your existing workflows.
+* PeekingDuckReborn comes with powerful models such as the <a href="https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki/Model-Nodes#rt_detr">RT-DETR object detection model</a>, <a href="https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki/Dabble-Nodes#bot_sort">BoT-SORT tracker</a>, and the <a href="https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki/Model-Nodes#vit_pose">VITPose human pose estimation model</a>. Mix and match different nodes to develop solutions to solve custom use cases.
 
 
 ## Installation
