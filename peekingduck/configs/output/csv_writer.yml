@@ -1,6 +1,17 @@
 input: ["all"]
 output: ["none"]
 
-stats_to_track: ["keypoints", "bboxes", "bbox_labels"]
-file_path: "PeekingDuck/data/stats.csv"
-logging_interval: 0 # in terms of seconds between each log
+
+# Non-existent stats will be automatically ignored.
+stats_to_track: ["bboxes", "bbox_labels", "keypoints"]
+
+# Save coordinates such as bboxes, keypoints as pixel coordinates.
+# If False, normalized coordinates will be saved instead.
+save_pixel_coords: True
+
+# Output CSV file path.
+file_path: "PeekingDuckReborn/data/stats.csv"
+
+# In terms of seconds between each log.
+# Set to 0 to log results from all frames.
+logging_interval: 0 

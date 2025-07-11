@@ -36,6 +36,9 @@ from pathlib import Path
 from typing import Any, Dict, List
 
 from peekingduck.pipeline.nodes.abstract_node import AbstractNode
+from peekingduck.pipeline.utils.bbox.transforms import xyxyn2xyxy
+from peekingduck.pipeline.utils.keypoint.transforms import xyn2xy as xyn2xy_kpts
+from peekingduck.pipeline.utils.keypoint_conn.transforms import xyn2xy as xyn2xy_conns
 from peekingduck.pipeline.nodes.output.utils.csvlogger import CSVLogger
 
 
@@ -62,11 +65,11 @@ class Node(AbstractNode):
         logging_interval (:obj:`int`): **default = 1**. |br|
             Interval between each log, in terms of seconds.
     """
-
     def __init__(self, config: Dict[str, Any] = None, **kwargs: Any) -> None:
         super().__init__(config, node_path=__name__, **kwargs)
 
         self.logger = logging.getLogger(__name__)
+        self.save_pixel_coords = self.save_pixel_coords
         self.logging_interval = int(self.logging_interval)  # type: ignore
         self.file_path = Path(self.file_path)  # type: ignore
         # check if file_path has a '.csv' extension
@@ -79,6 +82,7 @@ class Node(AbstractNode):
         self.csv_logger = CSVLogger(
             self._file_path_datetime, self.stats_to_track, self.logging_interval
         )
+
 
     def run(self, inputs: Dict[str, Any]) -> Dict[str, Any]:
         """Writes the current state of the tracked statistics into
@@ -102,9 +106,25 @@ class Node(AbstractNode):
                 self._file_path_datetime, self.stats_to_track, self.logging_interval
             )
 
-        self.csv_logger.write(inputs, self.stats_to_track)
+        if self.save_pixel_coords is True:
+            inputs = self._norm_to_pixel_coords(inputs=inputs)
 
+        self.csv_logger.write(inputs, self.stats_to_track)
         return {}
+
+
+    def _norm_to_pixel_coords(self, inputs: Dict[str, Any]) -> Dict[str, Any]:
+        """Converts normalized [x, y] coordinates to pixel coordinates for
+        `bboxes`, `keypoints` and `keypoint_conns`."""
+        H, W = inputs["img"].shape[:2] 
+        if "bboxes" in inputs and "bboxes" in self.stats_to_track:
+            inputs["bboxes"] = xyxyn2xyxy(inputs["bboxes"], H, W)
+        if "keypoints" in inputs and "keypoints" in self.stats_to_track:
+            inputs["keypoints"] = xyn2xy_kpts(inputs["keypoints"], H, W, clip_min=-1)
+        if "keypoint_conns" in inputs and "keypoint_conns" in self.stats_to_track:
+            inputs["keypoint_conns"] = xyn2xy_kpts(inputs["keypoint_conns"], H, W)
+        return inputs
+
 
     def _check_tracked_stats(self, inputs: Dict[str, Any]) -> None:
         """Checks whether user input statistics is present in the data pool
@@ -134,15 +154,17 @@ class Node(AbstractNode):
         self.stats_to_track = valid
         self._stats_checked = True
 
+
     def _get_config_types(self) -> Dict[str, Any]:
         """Returns dictionary mapping the node's config keys to respective types."""
         return {"stats_to_track": List[str], "file_path": str, "logging_interval": int}
 
+
     def _reset(self) -> None:
         del self.csv_logger
-
         # initialize for use in run
         self._stats_checked = False
+
 
     @staticmethod
     def _append_datetime_file_path(file_path: Path) -> Path:
@@ -156,5 +178,4 @@ class Node(AbstractNode):
         file_path_with_timestamp = file_path.with_name(
             f"{file_path.stem}_{time_str}{file_path.suffix}"
         )
-
         return file_path_with_timestamp

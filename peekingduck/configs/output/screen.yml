@@ -1,7 +1,7 @@
 input: ["img", "filename"]
 output: ["pipeline_end"]
 
-window_name: "PeekingDuck"
+window_name: "PeekingDuckReborn"
 window_size: {
     do_resizing: False,
     width: 1280,
