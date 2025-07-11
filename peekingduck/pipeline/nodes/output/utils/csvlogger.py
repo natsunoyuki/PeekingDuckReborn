@@ -35,6 +35,7 @@ import csv
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List
+import numpy as np
 
 
 class CSVLogger:
@@ -51,6 +52,7 @@ class CSVLogger:
         self.writer = csv.DictWriter(self.csv_file, fieldnames=self.headers)
         self.last_write = datetime.now()
 
+
     def write(self, data_pool: Dict[str, Any], specific_data: List[str]) -> None:
         """
         Writes a row of data in a csv file
@@ -66,7 +68,13 @@ class CSVLogger:
         if self.csv_file.tell() == 0:
             self.writer.writeheader()
 
-        content = {k: v for k, v in data_pool.items() if k in specific_data}
+        content = {}
+        for k, v in data_pool.items():
+            if k in specific_data:
+                if isinstance(v, np.ndarray):
+                    v = v.tolist()
+                content[k] = v
+
         curr_time = datetime.now()
         time_str = curr_time.strftime("%H:%M:%S")
         content.update({"Time": time_str})
@@ -74,6 +82,7 @@ class CSVLogger:
         if (curr_time - self.last_write).seconds >= self.logging_interval:
             self.writer.writerow(content)
             self.last_write = curr_time
+
 
     def __del__(self) -> None:
         self.csv_file.close()

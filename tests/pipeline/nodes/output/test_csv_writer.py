@@ -51,6 +51,7 @@ def writer():  # logging interval of 1 second
             "file_path": str(Path.cwd() / "test1.csv"),
             "stats_to_track": ["bbox", "bbox_labels"],
             "logging_interval": 1,
+            "save_pixel_coords": False,
         }
     )
     return csv_writer
@@ -66,6 +67,7 @@ def writer2():  # logging interval of 5 second
             "file_path": str(Path.cwd() / "test2.csv"),
             "stats_to_track": ["bbox", "bbox_labels"],
             "logging_interval": 5,
+            "save_pixel_coords": False,
         }
     )
     return csv_writer
