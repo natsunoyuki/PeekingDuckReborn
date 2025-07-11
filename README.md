@@ -5,13 +5,13 @@
 ---
 ### PeekingDuckReborn Wiki Documentation
 <h4 align="center">
-  <a href="https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki">PeekingDuckReborn Wiki</a>
+  <a href="https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki">Wiki</a>
   <span> · </span>
   <a href="https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki/Installation">Installation</a>
   <span> · </span>
-  <a href="https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki/PeekingDuckReborn-Nodes">PeekingDuckReborn API</a>
+  <a href="https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki/PeekingDuckReborn-Nodes">API</a>
   <span> · </span>
-  <a href="https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki/Inference-with-PeekingDuckReborn">Inference with PeekingDuckReborn</a>
+  <a href="https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki/Inference-with-PeekingDuckReborn">Usage</a>
 </h4>
 
 
@@ -24,18 +24,18 @@
 - [X] Update dependencies.
 - [X] Fix issue regarding the local weights subdirectory and parent directory with `dotenv`.
 - [X] Replace `pkg_resources` with `importlib.metadata`.
-- [X] Added BoT-SORT bounding box tracker (without reID) dabble node.
-- [X] Added RT-DETR object detector model node.
+- [X] Implement BoT-SORT bounding box tracker (without reID) dabble node.
+- [X] Implement RT-DETR object detector model node.
 - [X] Implement VITPose pose keypoint detection model node.
-- [X] [PeekingDuckReborn wiki](https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki) documentation to replace [the original](https://peekingduck.readthedocs.io/en/stable/index.html#what-is-peekingduck).
+- [X] Create [PeekingDuckReborn wiki](https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki) documentation to replace [the original](https://peekingduck.readthedocs.io/en/stable/index.html#what-is-peekingduck).
 - [ ] Modernize tests (WIP).
-- [ ] Fix issues involving TensorFlow on Windows.
+- [ ] Fix issues involving TensorFlow on Windows GPU.
 - [ ] Remove/deprecate PeekingDuck Mosse tracker.
-- [ ] Remove/deprecate PeekingDuck pose estimation models. 
+- [ ] Remove/deprecate PeekingDuck pose estimation models (HRNet, MoveNet, PoseNet). 
 - [ ] Implement re-ID for BoT-SORT tracker dabble node. 
 - [ ] Implement multi-GPU support.
 - [ ] Implement ONNX deployment for all models in the models node.
-- [ ] Updated model weights repository on the internet to replace [the original](https://storage.googleapis.com/peekingduck/models)
+- [ ] Update model weights repository on the internet to replace [the original](https://storage.googleapis.com/peekingduck/models)
 
 ## Features
 ### Build realtime computer vision pipelines
