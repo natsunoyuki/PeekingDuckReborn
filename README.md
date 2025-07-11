@@ -33,8 +33,6 @@
 - [ ] Remove/deprecate PeekingDuck Mosse tracker.
 - [ ] Remove/deprecate PeekingDuck pose estimation models (HRNet, MoveNet, PoseNet). 
 - [ ] Implement re-ID for BoT-SORT tracker dabble node. 
-- [ ] Implement multi-GPU support.
-- [ ] Implement ONNX deployment for all models in the models node.
 - [ ] Update model weights repository on the internet to replace [the original](https://storage.googleapis.com/peekingduck/models)
 
 ## Features
