@@ -30,13 +30,10 @@
 import numpy as np
 import torch
 
-import pytest
-
 from peekingduck.pipeline.nodes.model.jdev1.jde_files import tracker
 from peekingduck.pipeline.nodes.model.jdev1.jde_files.track import STrack
 
-# TODO
-@pytest.mark.skip("Too many test failures. Needs to be cleaned up.")
+
 class TestJDETracker:
     def test_remove_duplicate_stracks(self):
         tlwhs = [

@@ -36,6 +36,7 @@ import numpy.testing as npt
 import pytest
 import torch
 import yaml
+from typeguard import TypeCheckError
 
 from peekingduck.pipeline.nodes.base import WeightsDownloaderMixin
 from peekingduck.pipeline.nodes.model.fairmot import Node
@@ -118,8 +119,7 @@ def replace_iou_distance(*args):
     """
     return np.ones_like(iou_distance(*args))
 
-# TODO
-@pytest.mark.skip("Too many test failures. Needs to be cleaned up.")
+
 @pytest.mark.mlmodel
 class TestFairMOT:
     def test_should_give_empty_output_for_no_human_image(
@@ -143,6 +143,7 @@ class TestFairMOT:
             output["obj_attrs"]["ids"], expected_output["obj_attrs"]["ids"]
         )
 
+
     def test_tracking_ids_should_be_consistent_across_frames(
         self, human_video_sequence, fairmot_config
     ):
@@ -157,6 +158,7 @@ class TestFairMOT:
                 assert output["obj_attrs"]["ids"] == prev_tags
             prev_tags = output["obj_attrs"]["ids"]
 
+
     @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires GPU")
     def test_tracking_ids_should_be_consistent_across_frames_gpu(
         self, human_video_sequence, fairmot_config_gpu
@@ -169,6 +171,7 @@ class TestFairMOT:
             if i > 1:
                 assert output["obj_attrs"]["ids"] == prev_tags
             prev_tags = output["obj_attrs"]["ids"]
+
 
     def test_should_activate_unconfirmed_tracks_subsequently(
         self, human_video_sequence, fairmot_config
@@ -185,6 +188,7 @@ class TestFairMOT:
                 assert output["obj_attrs"]["ids"] == prev_tags
             prev_tags = output["obj_attrs"]["ids"]
 
+
     def test_reactivate_tracks(self, human_video_sequence, fairmot_config):
         _, detections = human_video_sequence
         fairmot = Node(fairmot_config)
@@ -199,6 +203,7 @@ class TestFairMOT:
                 assert output["obj_attrs"]["ids"] == prev_tags
             prev_tags = output["obj_attrs"]["ids"]
 
+
     def test_associate_with_iou(self, human_video_sequence, fairmot_config):
         _, detections = human_video_sequence
         fairmot = Node(fairmot_config)
@@ -212,6 +217,7 @@ class TestFairMOT:
                 if i > 1:
                     assert output["obj_attrs"]["ids"] == prev_tags
                 prev_tags = output["obj_attrs"]["ids"]
+
 
     def test_mark_unconfirmed_tracks_for_removal(
         self, human_video_sequence, fairmot_config
@@ -238,6 +244,7 @@ class TestFairMOT:
                     continue
                 assert not output["obj_attrs"]["ids"]
 
+
     def test_remove_lost_tracks(self, human_video_sequence, fairmot_config):
         # Set buffer and as a result `max_time_lost` to extremely short so
         # lost tracks will get removed
@@ -256,6 +263,7 @@ class TestFairMOT:
             elif i > 1:
                 assert output["obj_attrs"]["ids"] == prev_tags
             prev_tags = output["obj_attrs"]["ids"]
+
 
     @pytest.mark.parametrize(
         "mot_metadata",
@@ -289,6 +297,7 @@ class TestFairMOT:
                 assert fairmot._frame_rate == pytest.approx(mot_metadata["frame_rate"])
                 prev_tags = output["obj_attrs"]["ids"]
 
+
     def test_handle_empty_detections(
         self, human_video_sequence_with_empty_frames, fairmot_config
     ):
@@ -299,15 +308,18 @@ class TestFairMOT:
             if i > 1:
                 assert len(output["obj_attrs"]["ids"]) == len(inputs["bboxes"])
 
+
     def test_invalid_config_value(self, fairmot_bad_config_value):
         with pytest.raises(ValueError) as excinfo:
             _ = Node(config=fairmot_bad_config_value)
         assert "must be" in str(excinfo.value)
 
+
     def test_invalid_config_type(self, fairmot_bad_config_type):
-        with pytest.raises(TypeError) as excinfo:
+        with pytest.raises(TypeCheckError) as excinfo:
             _ = Node(config=fairmot_bad_config_type)
-        assert "type of model.fairmot's" in str(excinfo.value)
+        assert "float is not an instance of int" in str(excinfo.value)
+
 
     @mock.patch.object(WeightsDownloaderMixin, "_has_weights", return_value=True)
     def test_invalid_config_model_files(self, _, fairmot_config):
@@ -317,6 +329,7 @@ class TestFairMOT:
             ] = "some/invalid/path"
             _ = Node(config=fairmot_config)
         assert "Model file does not exist. Please check that" in str(excinfo.value)
+
 
     def test_invalid_image(self, no_human_image, fairmot_config):
         no_human_img = cv2.imread(no_human_image)
