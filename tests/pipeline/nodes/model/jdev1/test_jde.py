@@ -105,8 +105,7 @@ def replace_iou_distance(*args):
     """
     return np.ones_like(iou_distance(*args))
 
-# TODO
-@pytest.mark.skip("Too many test failures. Needs to be cleaned up.")
+
 @pytest.mark.mlmodel
 class TestJDE:
     def test_no_human_image(self, no_human_image, jde_config):
@@ -127,6 +126,7 @@ class TestJDE:
         npt.assert_equal(
             output["obj_attrs"]["ids"], expected_output["obj_attrs"]["ids"]
         )
+
 
     def test_tracking_ids_should_be_consistent_across_frames(
         self, human_video_sequence, jde_config
@@ -150,6 +150,7 @@ class TestJDE:
                 assert output["obj_attrs"]["ids"] == prev_tags
             prev_tags = output["obj_attrs"]["ids"]
 
+
     @pytest.mark.skipif(not torch.cuda.is_available(), reason="requires GPU")
     def test_tracking_ids_should_be_consistent_across_frames_gpu(
         self, human_video_sequence, jde_config_gpu
@@ -162,6 +163,7 @@ class TestJDE:
             if i > 1:
                 assert output["obj_attrs"]["ids"] == prev_tags
             prev_tags = output["obj_attrs"]["ids"]
+
 
     def test_detect_human_bboxes(self, human_video, jde_config):
         jde = Node(jde_config)
@@ -179,6 +181,7 @@ class TestJDE:
         # When everything done, release the video capture object
         cap.release()
 
+
     def test_reactivate_tracks(self, human_video_sequence, jde_config):
         _, detections = human_video_sequence
         jde = Node(jde_config)
@@ -193,6 +196,7 @@ class TestJDE:
                 assert output["obj_attrs"]["ids"] == prev_tags
             prev_tags = output["obj_attrs"]["ids"]
 
+
     def test_associate_with_iou(self, human_video_sequence, jde_config):
         _, detections = human_video_sequence
         jde = Node(jde_config)
@@ -206,6 +210,7 @@ class TestJDE:
                 if i > 1:
                     assert output["obj_attrs"]["ids"] == prev_tags
                 prev_tags = output["obj_attrs"]["ids"]
+
 
     def test_mark_unconfirmed_tracks_for_removal(
         self, human_video_sequence, jde_config
@@ -227,6 +232,7 @@ class TestJDE:
                 output = jde.run(inputs)
                 assert not output["obj_attrs"]["ids"]
 
+
     def test_remove_lost_tracks(self, human_video_sequence, jde_config):
         _, detections = human_video_sequence
         # Set buffer and as a result `max_time_lost` to extremely short so
@@ -245,6 +251,7 @@ class TestJDE:
             elif i > 1:
                 assert output["obj_attrs"]["ids"] == prev_tags
             prev_tags = output["obj_attrs"]["ids"]
+
 
     @pytest.mark.parametrize(
         "mot_metadata",
@@ -279,6 +286,7 @@ class TestJDE:
                 assert jde._frame_rate == pytest.approx(mot_metadata["frame_rate"])
                 prev_tags = output["obj_attrs"]["ids"]
 
+
     def test_handle_empty_detections(
         self, human_video_sequence_with_empty_frames, jde_config
     ):
@@ -289,10 +297,12 @@ class TestJDE:
             if i > 1:
                 assert len(output["obj_attrs"]["ids"]) == len(inputs["bboxes"])
 
+
     def test_invalid_config_value(self, jde_bad_config_value):
         with pytest.raises(ValueError) as excinfo:
             _ = Node(config=jde_bad_config_value)
         assert "_threshold must be between [0.0, 1.0]" in str(excinfo.value)
+
 
     @mock.patch.object(WeightsDownloaderMixin, "_has_weights", return_value=True)
     def test_invalid_config_model_files(self, _, jde_config):
@@ -302,6 +312,7 @@ class TestJDE:
             ] = "some/invalid/path"
             _ = Node(config=jde_config)
         assert "Model file does not exist. Please check that" in str(excinfo.value)
+
 
     def test_invalid_image(self, no_human_image, jde_config):
         no_human_img = cv2.imread(no_human_image)

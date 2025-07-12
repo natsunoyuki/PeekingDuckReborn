@@ -126,7 +126,10 @@ def generate_anchor(
         (torch.Tensor): Anchors of a feature map in a single level.
     """
     num_anchors = len(anchor_wh)
-    y_vec, x_vec = torch.meshgrid(torch.arange(grid_height), torch.arange(grid_width))
+    # https://docs.pytorch.org/docs/stable/generated/torch.meshgrid.html
+    y_vec, x_vec = torch.meshgrid(
+        torch.arange(grid_height), torch.arange(grid_width), indexing="ij",
+    )
     x_vec, y_vec = x_vec.to(device), y_vec.to(device)
 
     # Shape 2 x grid_height x grid_width
