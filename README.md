@@ -1,6 +1,6 @@
 <br />
 
-<img src="https://raw.githubusercontent.com/natsunoyuki/PeekingDuckReborn/main/docs/source/assets/peekingduck_reborn_new.svg">
+<img src="https://raw.githubusercontent.com/natsunoyuki/PeekingDuckReborn/main/docs/source/assets/peekingduckreborn.svg">
 
 ---
 ### PeekingDuckReborn Wiki Documentation
@@ -13,8 +13,6 @@
   <span> · </span>
   <a href="https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki/Inference-with-PeekingDuckReborn">Usage</a>
 </h4>
-
-
 ---
 
 **PeekingDuckReborn** is the modernized version of [PeekingDuck](https://github.com/aisingapore/PeekingDuck), an open-source, modular framework in Python, built for computer vision (CV) inference, originally developed by [AI Singapore](https://github.com/aisingapore/PeekingDuck). The name "PeekingDuck" is a play on: "Peeking" in a nod to CV; and "Duck" in [duck typing](https://en.wikipedia.org/wiki/Duck_typing). "Reborn" is more straightforward - taking something old and giving it a new breath of life.
