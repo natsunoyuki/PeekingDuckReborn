@@ -3,6 +3,7 @@
 <img src="https://raw.githubusercontent.com/natsunoyuki/PeekingDuckReborn/main/docs/source/assets/peekingduckreborn.svg">
 
 ---
+
 ### PeekingDuckReborn Wiki Documentation
 <h4 align="center">
   <a href="https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki">Wiki</a>
@@ -13,9 +14,13 @@
   <span> · </span>
   <a href="https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki/Inference-with-PeekingDuckReborn">Usage</a>
 </h4>
+
 ---
 
-**PeekingDuckReborn** is the modernized version of [PeekingDuck](https://github.com/aisingapore/PeekingDuck), an open-source, modular framework in Python, built for computer vision (CV) inference, originally developed by [AI Singapore](https://github.com/aisingapore/PeekingDuck). The name "PeekingDuck" is a play on: "Peeking" in a nod to CV; and "Duck" in [duck typing](https://en.wikipedia.org/wiki/Duck_typing). "Reborn" is more straightforward - taking something old and giving it a new breath of life.
+PeekingDuckReborn is the modernized evolution of [PeekingDuck](https://github.com/aisingapore/PeekingDuck), an open-source, modular Python framework designed for computer vision (CV) inference. Originally developed by [AI Singapore](https://github.com/aisingapore/PeekingDuck), PeekingDuckReborn revitalizes the original project with modern features and enhancements.
+
+The name "PeekingDuck" is a clever play on words: “Peeking” references computer vision, while “Duck” alludes to duck typing, a concept in programming. “Reborn” signifies the framework’s refreshed and updated identity.
+
 
 ## To Do
 - [X] Full compatibility with Python3.12+.
@@ -27,6 +32,7 @@
 - [X] Implement VITPose pose keypoint detection model node.
 - [X] Create [PeekingDuckReborn wiki](https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki) documentation to replace [the original](https://peekingduck.readthedocs.io/en/stable/index.html#what-is-peekingduck).
 - [ ] Modernize tests (WIP).
+- [ ] Pypi installer.
 - [ ] Fix issues involving TensorFlow on Windows GPU.
 - [ ] Remove/deprecate PeekingDuck Mosse tracker.
 - [ ] Remove/deprecate PeekingDuck pose estimation models (HRNet, MoveNet, PoseNet). 
@@ -34,8 +40,9 @@
 - [ ] Update model weights repository on the internet to replace [the original](https://storage.googleapis.com/peekingduck/models)
 
 ## Features
-### Build realtime computer vision pipelines
-* Use PeekingDuckReborn to develop custom computer vision pipelines with minimal lines of code.
+### Build customizable, realtime computer vision pipelines
+* Use PeekingDuckReborn to develop custom computer vision pipelines with minimal lines of Python code.
+* Developed customized pipelines with YAML configuration files.
 
 ### Leverage on SOTA models
 * PeekingDuckReborn comes with powerful models such as the <a href="https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki/Model-Nodes#rt_detr">RT-DETR object detection model</a>, <a href="https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki/Dabble-Nodes#bot_sort">BoT-SORT tracker</a>, and the <a href="https://github.com/Natsunoyuki-AI-Laboratory/PeekingDuckReborn/wiki/Model-Nodes#vit_pose">VITPose human pose estimation model</a>. Mix and match different nodes to develop solutions to solve custom use cases.
@@ -58,7 +65,7 @@ cd PeekingDuckReborn
 pip install -e .
 ```
 
-### Windows with CUDA
+### Installing on Windows with CUDA
 Before installing PeekingDuckReborn, install torch with CUDA first following the <a href="https://pytorch.org/get-started/locally/">official PyTorch instructions</a>. If not, torch will only be able to access the CPU. Tensorflow 2.11 and newer do not support CUDA on Windows.
 ```bash
 # Install torch with CUDA first.
@@ -106,7 +113,6 @@ Terminate the program by clicking on the output screen and pressing `q`.
 Use `peekingduck --help` to display help information for PeekingDuck's command-line interface.
 
 ### Specifying YAML Configuration Files
-
 Run the pipeline with a specified configuration `.yml` file.
 ```bash
 peekingduck run --config_path <path-to-config-yml-file>
