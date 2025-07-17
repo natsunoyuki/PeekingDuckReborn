@@ -71,7 +71,7 @@ def jde_config_gpu():
     with open(PKD_DIR / "configs" / "model" / "jde.yml") as infile:
         node_config = yaml.safe_load(infile)
     node_config["root"] = Path.cwd()
-
+    node_config["weights_parent_dir"] = str(PKD_DIR.parent)
     yield node_config
 
 
