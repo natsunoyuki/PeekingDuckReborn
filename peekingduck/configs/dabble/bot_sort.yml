@@ -20,3 +20,6 @@ track_buffer: 30
 frame_rate: 30
 
 # TODO: Re-ID configurations.
+
+# Optional MOT metadata for resetting the tracker.
+optional_inputs: ["mot_metadata"]

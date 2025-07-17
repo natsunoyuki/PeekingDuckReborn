@@ -70,6 +70,11 @@ class Node(AbstractNode):
             outputs (Dict[str, Any]): Tracking IDs of bounding boxes.
             "obj_attrs" key is used for compatibility with draw nodes.
         """
+        metadata = inputs.get("mot_metadata", {"reset_model": False})
+        reset_model = metadata.get("reset_model", False)
+        if reset_model:
+            self._reset_model()
+
         outputs = self.tracker.track_detections(inputs)
 
         return {
@@ -94,5 +99,5 @@ class Node(AbstractNode):
 
     def _reset_model(self) -> None:
         """Creates a new instance of DetectionTracker."""
-        self.logger.info(f"Creating new {self.config['tracking_type']} tracker...")
+        self.logger.info(f"Creating new BoT-SORT tracker...")
         self.tracker = DetectionTracker(self.config)

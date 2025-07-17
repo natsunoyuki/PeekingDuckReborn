@@ -192,6 +192,7 @@ class TestBotSortTracking:
                 assert outputs["obj_attrs"]["ids"] == prev_tags
             prev_tags = outputs["obj_attrs"]["ids"]
 
+
     def test_should_remove_lost_tracks(self, bot_sort_config, human_video_sequence_2):
         """NOTE: We are manually making a track to be lost since we don't
         have enough frames for it to occur naturally.
@@ -234,11 +235,10 @@ class TestBotSortTracking:
                 assert outputs["obj_attrs"]["ids"] == prev_tags
             prev_tags = outputs["obj_attrs"]["ids"]
 
-    # TODO
-    @pytest.mark.skip("Not implemented in the bot-sort source code yet.")
-    def test_reset_model(self, tracker, human_video_sequence):
+
+    def test_reset_model(self, tracker, human_video_sequence_2):
         mot_metadata = {"reset_model": True}
-        _, detections = human_video_sequence
+        _, detections = human_video_sequence_2
         prev_tags = []
         with TestCase.assertLogs(
             "peekingduck.pipeline.nodes.dabble.bot_sort.logger"
@@ -252,11 +252,12 @@ class TestBotSortTracking:
                 assert len(outputs["obj_attrs"]["ids"]) == len(inputs["bboxes"])
                 if i == 0:
                     assert captured.records[0].getMessage() == (
-                        f"Creating new {tracker.tracking_type} tracker..."
+                        f"Creating new BoT-SORT tracker..."
                     )
                 if i > 0:
                     assert outputs["obj_attrs"]["ids"] == prev_tags
                 prev_tags = outputs["obj_attrs"]["ids"]
+
 
     def test_handle_empty_detections(
         self, tracker, human_video_sequence_with_empty_frames_2
